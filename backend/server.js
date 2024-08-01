@@ -11,10 +11,7 @@ app.use(bodyParser.json());
 
 // MongoDB connection
 mongoose
-  .connect("mongodb://mongo:27017/ezvac-manager", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect("mongodb://db:27017/ezvac-manager")
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -23,6 +20,9 @@ mongoose
   });
 
 // Routes
+app.use("/api/employee", require("./routes/employee"));
+app.use("/api/leave", require("./routes/leave"));
+
 app.get("/", (req, res) => {
   res.send("API is running...");
 });

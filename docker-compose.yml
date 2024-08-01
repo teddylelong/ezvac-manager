@@ -17,5 +17,14 @@ services:
     volumes:
       - db-data:/data/db
 
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://db:27017/ezvac-manager
+      - ME_CONFIG_BASICAUTH_USERNAME=root
+      - ME_CONFIG_BASICAUTH_PASSWORD=root
+
 volumes:
   db-data:
