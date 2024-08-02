@@ -9,6 +9,7 @@ services:
       - .:/usr/src/app
     depends_on:
       - db
+    restart: unless-stopped
 
   db:
     image: mongo:latest
@@ -16,6 +17,7 @@ services:
       - "27017:27017"
     volumes:
       - db-data:/data/db
+    restart: unless-stopped
 
   mongo-express:
     image: mongo-express:latest
@@ -25,6 +27,7 @@ services:
       - ME_CONFIG_MONGODB_URL=mongodb://db:27017/ezvac-manager
       - ME_CONFIG_BASICAUTH_USERNAME=root
       - ME_CONFIG_BASICAUTH_PASSWORD=root
+    restart: unless-stopped
 
 volumes:
   db-data:
