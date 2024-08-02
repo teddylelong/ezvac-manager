@@ -23,8 +23,8 @@ mongoose
 app.use("/api/employee", require("./routes/employee"));
 app.use("/api/leave", require("./routes/leave"));
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
+app.get("/api", (req, res) => {
+  res.send("OK");
 });
 
 const PORT = process.env.PORT || 5000;
