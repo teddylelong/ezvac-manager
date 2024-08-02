@@ -1,0 +1,14 @@
+.homepage {
+    display: flex;
+  }
+
+  .employee-list {
+    flex: 1;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+  }
+
+  .leave-calendar {
+    flex: 4;
+    padding: 10px;
+  }
