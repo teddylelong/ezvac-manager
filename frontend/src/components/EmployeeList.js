@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import apis from "../services/api.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -15,6 +17,10 @@ const EmployeeList = () => {
 
   return (
     <div>
+      <h2 className="mb-4 text-xl font-bold dark:text-gray-200">
+        <FontAwesomeIcon icon={faUser} className="mr-2" />
+        Employees
+      </h2>
       <ul className="dark:text-gray-200">
         {employees.map((employee) => (
           <li

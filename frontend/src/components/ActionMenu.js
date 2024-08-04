@@ -24,10 +24,10 @@ const ActionMenu = ({ toggleDarkMode, darkMode }) => {
             Employees
           </Link>
           <Link
-            to="/leaves"
+            to="/calendar"
             className="text-gray-300 dark:text-gray-400 hover:bg-gray-700 dark:hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            Leaves
+            Leaves Calendar
           </Link>
           <button
             onClick={toggleDarkMode}

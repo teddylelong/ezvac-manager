@@ -5,6 +5,9 @@ import "./LeaveCalendar.css";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import { enUS } from "date-fns/locale";
 import apis from "../services/api.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
+import EmployeeLayout from "./EmployeeLayout";
 
 const locales = {
   "en-US": enUS,
@@ -37,7 +40,11 @@ const LeaveCalendar = () => {
   };
 
   return (
-    <div>
+    <EmployeeLayout>
+      <h2 className="mb-4 text-xl font-bold dark:text-gray-200">
+        <FontAwesomeIcon icon={faCalendar} className="mr-2" />
+        Leave Calendar
+      </h2>
       <Calendar
         localizer={localizer}
         events={leaves}
@@ -45,7 +52,7 @@ const LeaveCalendar = () => {
         endAccessor="end"
         style={{ height: 500 }}
       />
-    </div>
+    </EmployeeLayout>
   );
 };
 
