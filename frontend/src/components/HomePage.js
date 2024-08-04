@@ -1,15 +1,16 @@
 import React from "react";
-import EmployeeList from "./EmployeeList.js";
-import LeaveCalendar from "./LeaveCalendar.js";
-import "./HomePage.css";
+import EmployeeList from "./EmployeeList";
+import LeaveCalendar from "./LeaveCalendar";
 
 const HomePage = () => {
   return (
-    <div className="homepage">
-      <div className="employee-list">
+    <div className="flex">
+      <div className="w-1/4 p-4 border-r">
+        <h2 className="text-xl font-bold">Employees</h2>
         <EmployeeList />
       </div>
-      <div className="leave-calendar">
+      <div className="w-3/4 p-4">
+        <h2 className="text-xl font-bold">Leave Calendar</h2>
         <LeaveCalendar />
       </div>
     </div>

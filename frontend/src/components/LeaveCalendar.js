@@ -37,7 +37,6 @@ const LeaveCalendar = () => {
 
   return (
     <div>
-      <h2>Leave Calendar</h2>
       <Calendar
         localizer={localizer}
         events={leaves}

@@ -17,7 +17,6 @@ const EmployeeList = () => {
 
   return (
     <div>
-      <h2>Employees</h2>
       <ul>
         {employees.map((employee) => (
           <li key={employee._id}>
