@@ -10,16 +10,17 @@ const EmployeeList = () => {
 
   const fetchEmployees = async () => {
     const response = await apis.getEmployees();
-    console.log(response);
-
     setEmployees(response.data);
   };
 
   return (
     <div>
-      <ul>
+      <ul className="dark:text-gray-200">
         {employees.map((employee) => (
-          <li key={employee._id}>
+          <li
+            className="mb-2 p-4 rounded-md shadow-md bg-gray-200 dark:bg-gray-600"
+            key={employee._id}
+          >
             {employee.firstName} {employee.lastName}
           </li>
         ))}

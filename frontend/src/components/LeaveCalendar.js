@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./LeaveCalendar.css";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import { enUS } from "date-fns/locale";
 import apis from "../services/api.js";

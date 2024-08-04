@@ -1,0 +1,37 @@
+/* Dark Mode */
+.dark .rbc-calendar {
+    background-color: #1f2937;
+    color: #e5e7eb;
+  }
+
+.dark .rbc-toolbar .rbc-btn-group > button {
+    color: #e5e7eb
+}
+
+.dark .rbc-toolbar .rbc-btn-group > button[class=rbc-active],
+.dark .rbc-toolbar .rbc-btn-group > button:hover,
+.dark .rbc-toolbar .rbc-btn-group > button:focus {
+    color: #1f2937
+}
+
+.dark .rbc-event {
+    background-color: #3182ce;
+    color: #e5e7eb;
+}
+
+.dark .rbc-day-bg {
+    background-color: #2d3748;
+}
+
+.dark .rbc-off-range-bg {
+    background-color: #4b5563 !important;
+}
+
+.dark .rbc-today {
+    background-color: #9ca3af;
+    color: #1f2937;
+}
+
+.dark .rbc-time-slot {
+    border-color: #4a5568; 
+}
