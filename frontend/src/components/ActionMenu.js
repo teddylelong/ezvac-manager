@@ -2,13 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
+import { faMugHot } from "@fortawesome/free-solid-svg-icons";
 
 const ActionMenu = ({ toggleDarkMode, darkMode }) => {
   return (
     <nav className="bg-gray-800 dark:bg-gray-900 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white dark:text-gray-200 text-lg font-bold">
-          <h1>EZVac Manager</h1>
+          <h1>
+            <FontAwesomeIcon icon={faMugHot}></FontAwesomeIcon> EZVac Manager
+          </h1>
         </div>
         <div className="space-x-4">
           <Link

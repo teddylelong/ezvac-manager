@@ -75,7 +75,9 @@ const LeaveOverview = () => {
 
   return (
     <div className="leave-overview">
-      <div className="header flex justify-between dark:text-gray-200 p-4 border-b border-gray-200 dark:border-gray-600">
+      {/* Action Menu */}
+      <div className="header flex justify-between dark:text-gray-200 py-4 dark:border-gray-600">
+        {/* Date select */}
         <div class="input-group">
           <button
             className="btn btn-secondary rounded-l"
@@ -101,9 +103,11 @@ const LeaveOverview = () => {
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>
+        {/* Year select */}
         <div>
           <select
             value={year}
+            className="rounded-md"
             onChange={(e) => setYear(parseInt(e.target.value, 10))}
           >
             {Array.from({ length: 10 }).map((_, i) => (
@@ -114,9 +118,11 @@ const LeaveOverview = () => {
           </select>
         </div>
       </div>
+      {/* Overview */}
       <div className="weeks-container flex dark:text-gray-200">
+        {/* Weeks Column */}
         <div className="weeks-column w-1/5">
-          <div className="weeks-header font-bold p-2 bg-gray-200 border-b border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+          <div className="weeks-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-l-md dark:bg-gray-700 dark:border-gray-600">
             Week
           </div>
           {weeks.map((weekStart, i) => (
@@ -128,8 +134,9 @@ const LeaveOverview = () => {
             </div>
           ))}
         </div>
+        {/* Employee Column */}
         <div className="employees-column w-4/5">
-          <div className="employees-header font-bold p-2 bg-gray-200 border-b border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+          <div className="employees-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-r-md dark:bg-gray-700 dark:border-gray-600">
             Employees
           </div>
           {weeks.map((weekStart, i) => {

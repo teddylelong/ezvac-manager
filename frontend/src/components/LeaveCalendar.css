@@ -1,3 +1,7 @@
+.rbc-month-view {
+    @apply rounded-md;
+}
+
 /* Dark Mode */
 .dark .rbc-calendar {
     background-color: #1f2937;
