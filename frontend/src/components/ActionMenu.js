@@ -35,6 +35,7 @@ const ActionMenu = ({ toggleDarkMode, darkMode }) => {
           </Link>
           <Button
             onClick={toggleDarkMode}
+            variant={false}
             label={
               <FontAwesomeIcon
                 icon={darkMode ? faSun : faMoon}
