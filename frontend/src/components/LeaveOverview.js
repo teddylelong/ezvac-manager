@@ -12,6 +12,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import apis from "../services/api.js";
+import Button from "./common/Button.js";
 
 const LeaveOverview = () => {
   const currentYear = new Date().getFullYear();
@@ -79,12 +80,11 @@ const LeaveOverview = () => {
       <div className="header flex justify-between dark:text-gray-200 py-4 dark:border-gray-600">
         {/* Date select */}
         <div class="input-group">
-          <button
-            className="btn btn-secondary rounded-l"
+          <Button
             onClick={handlePrevMonth}
-          >
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </button>
+            className="btn btn-secondary rounded-l"
+            label={<FontAwesomeIcon icon={faChevronLeft} />}
+          ></Button>
           <select
             className="w-32"
             value={month}
@@ -96,12 +96,11 @@ const LeaveOverview = () => {
               </option>
             ))}
           </select>
-          <button
-            className="btn btn-secondary rounded-r"
+          <Button
             onClick={handleNextMonth}
-          >
-            <FontAwesomeIcon icon={faChevronRight} />
-          </button>
+            className="btn btn-secondary rounded-r"
+            label={<FontAwesomeIcon icon={faChevronRight} />}
+          ></Button>
         </div>
         {/* Year select */}
         <div>

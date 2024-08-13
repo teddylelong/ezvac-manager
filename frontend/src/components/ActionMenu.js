@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Button from "./common/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 import { faMugHot } from "@fortawesome/free-solid-svg-icons";
@@ -32,15 +33,16 @@ const ActionMenu = ({ toggleDarkMode, darkMode }) => {
           >
             Leaves Calendar
           </Link>
-          <button
+          <Button
             onClick={toggleDarkMode}
+            label={
+              <FontAwesomeIcon
+                icon={darkMode ? faSun : faMoon}
+                className="mr-2"
+              />
+            }
             className="text-gray-300 dark:text-gray-400 hover:bg-gray-700 dark:hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-          >
-            <FontAwesomeIcon
-              icon={darkMode ? faSun : faMoon}
-              className="mr-2"
-            />
-          </button>
+          ></Button>
         </div>
       </div>
     </nav>
