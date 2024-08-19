@@ -10,7 +10,7 @@ const Modal = ({ isOpen, onClose, title = null, children }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 dark:text-gray-200">
       <div className="bg-white dark:bg-gray-800 p-6 rounded-md shadow-lg">
         <div className="text-end">
-          <button onClick={onClose}>
+          <button onClick={onClose} className="hover:text-red-600">
             <FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
           </button>
         </div>

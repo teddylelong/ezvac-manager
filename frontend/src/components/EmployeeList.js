@@ -6,10 +6,12 @@ import EmployeeForm from "./EmployeeForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Dropdown from "./common/Dropdown.js";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   useEffect(() => {
     fetchEmployees();
@@ -21,25 +23,44 @@ const EmployeeList = () => {
   };
 
   const addEmployee = () => {
+    setSelectedEmployee(null);
+    setIsModalOpen(true);
+  };
+
+  const editEmployee = (employeeId) => {
+    const employee = employees.find((emp) => emp._id === employeeId);
+    setSelectedEmployee(employee);
     setIsModalOpen(true);
   };
 
   const handleSaveEmployee = async (employeeData) => {
     try {
-      await apis.createEmployee(employeeData);
-      fetchEmployees(); // Refresh the employee list after adding a new employee
+      selectedEmployee
+        ? await apis.updateEmployee(selectedEmployee._id, employeeData)
+        : await apis.createEmployee(employeeData);
+      fetchEmployees();
+      setIsModalOpen(false);
     } catch (error) {
-      console.error("Failed to add employee", error);
+      console.error("Failed to save employee", error);
+    }
+  };
+
+  const handleDeleteEmployee = async (employeeId) => {
+    try {
+      await apis.deleteEmployee(employeeId);
+      fetchEmployees();
+    } catch (error) {
+      console.error("Failed to delete employee", error);
     }
   };
 
   return (
     <div>
-      <h2 className="flex items-center mb-4 text-xl font-bold dark:text-gray-200">
-        <div className="w-2/3">
+      <div className="flex items-center mb-4 text-xl font-bold dark:text-gray-200">
+        <h2 className="w-2/3">
           <FontAwesomeIcon icon={faUser} className="mr-2" />
           Employees
-        </div>
+        </h2>
         <div className="w-1/3 text-end">
           <Button
             onClick={addEmployee}
@@ -48,26 +69,44 @@ const EmployeeList = () => {
             label={<FontAwesomeIcon icon={faPlus} />}
           />
         </div>
-      </h2>
+      </div>
       <ul className="dark:text-gray-200">
         {employees.map((employee) => (
           <li
-            className="mb-2 p-4 rounded-md shadow-md bg-gray-200 dark:bg-gray-600"
+            className="flex mb-2 p-4 rounded-md shadow-md bg-gray-200 dark:bg-gray-600"
             key={employee._id}
           >
-            {employee.firstName} {employee.lastName}
+            <div className="w-2/3">
+              {employee.firstName} {employee.lastName}
+            </div>
+            <div className="w-1/3 text-end">
+              <Dropdown
+                options={[
+                  {
+                    label: "Edit",
+                    onClick: () => editEmployee(employee._id),
+                  },
+                  {
+                    label: "Delete",
+                    onClick: () => handleDeleteEmployee(employee._id),
+                    danger: true,
+                  },
+                ]}
+              />
+            </div>
           </li>
         ))}
       </ul>
 
       <Modal
         isOpen={isModalOpen}
-        title={"Add new Employee"}
+        title={selectedEmployee ? "Edit Employee" : "Add New Employee"}
         onClose={() => setIsModalOpen(false)}
       >
         <EmployeeForm
           onSave={handleSaveEmployee}
           onClose={() => setIsModalOpen(false)}
+          employee={selectedEmployee}
         />
       </Modal>
     </div>

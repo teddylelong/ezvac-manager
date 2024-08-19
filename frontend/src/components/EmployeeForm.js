@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-const EmployeeForm = ({ onSave, onClose }) => {
+const EmployeeForm = ({ onSave, onClose, employee }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+
+  useEffect(() => {
+    if (employee) {
+      setFirstName(employee.firstName);
+      setLastName(employee.lastName);
+    } else {
+      setFirstName("");
+      setLastName("");
+    }
+  }, [employee]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,6 +74,7 @@ const EmployeeForm = ({ onSave, onClose }) => {
 EmployeeForm.propTypes = {
   onSave: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  employee: PropTypes.object,
 };
 
 export default EmployeeForm;
