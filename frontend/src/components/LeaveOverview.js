@@ -17,11 +17,13 @@ import Button from "./common/Button.js";
 import Modal from "./common/Modal";
 import LeaveForm from "./LeaveForm.js";
 import Dropdown from "./common/Dropdown.js";
+import ToggleSwitch from "./common/ToggleSwitch";
 
 const LeaveOverview = () => {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth();
 
+  const [viewMode, setViewMode] = useState("month");
   const [year, setYear] = useState(currentYear);
   const [month, setMonth] = useState(currentMonth);
   const [weeks, setWeeks] = useState([]);
@@ -30,18 +32,30 @@ const LeaveOverview = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    updateWeeks();
     fetchLeaves();
-  }, [year, month]);
+    updateWeeks();
+  }, [viewMode, year, month]);
+
+  const handleToggleChange = () => {
+    setViewMode(viewMode === "month" ? "year" : "month");
+  };
 
   const updateWeeks = () => {
-    const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month + 1, 0);
-    const weeksInMonth = eachWeekOfInterval(
+    let startDate, endDate;
+
+    if (viewMode === "year") {
+      startDate = new Date(year, 0, 1);
+      endDate = new Date(year, 11, 31);
+    } else {
+      startDate = new Date(year, month, 1);
+      endDate = new Date(year, month + 1, 0);
+    }
+
+    const weeksInInterval = eachWeekOfInterval(
       { start: startDate, end: endDate },
       { weekStartsOn: 1 }
     );
-    setWeeks(weeksInMonth);
+    setWeeks(weeksInInterval);
   };
 
   const fetchLeaves = async () => {
@@ -143,11 +157,13 @@ const LeaveOverview = () => {
             onClick={handlePrevMonth}
             className="btn btn-secondary rounded-l"
             label={<FontAwesomeIcon icon={faChevronLeft} />}
+            disabled={viewMode === "year"}
           ></Button>
           <select
             className="w-32"
             value={month}
             onChange={(e) => setMonth(parseInt(e.target.value, 10))}
+            disabled={viewMode === "year"}
           >
             {Array.from({ length: 12 }).map((_, i) => (
               <option key={`month-${i}`} value={i}>
@@ -159,13 +175,12 @@ const LeaveOverview = () => {
             onClick={handleNextMonth}
             className="btn btn-secondary rounded-r"
             label={<FontAwesomeIcon icon={faChevronRight} />}
+            disabled={viewMode === "year"}
           ></Button>
-        </div>
-        {/* Year select */}
-        <div>
+          {/* Year select */}
           <select
             value={year}
-            className="rounded-md"
+            className="ml-4 rounded-md"
             onChange={(e) => setYear(parseInt(e.target.value, 10))}
           >
             {Array.from({ length: 10 }).map((_, i) => (
@@ -174,6 +189,18 @@ const LeaveOverview = () => {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="input-group">
+          {/* ViewMode select */}
+          <div className="flex items-center">
+            <ToggleSwitch
+              checked={viewMode === "year"}
+              onChange={handleToggleChange}
+              labelOn="Yearly"
+              labelOff="Monthly"
+            />
+          </div>
         </div>
       </div>
       {/* Overview */}

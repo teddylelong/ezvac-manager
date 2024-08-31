@@ -32,3 +32,9 @@ select:hover {
 select:focus {
   @apply outline-none;
 }
+
+select:disabled {
+  @apply bg-gray-100 text-gray-400 dark:bg-gray-700 dark:text-gray-500 opacity-60;
+  @apply border-gray-300 dark:border-gray-600;
+  @apply cursor-not-allowed;
+}
