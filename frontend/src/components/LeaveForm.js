@@ -11,9 +11,9 @@ const LeaveForm = ({ onSave, onClose, leave }) => {
   useEffect(() => {
     fetchEmployees();
     if (leave) {
-      setEmployee(leave.employee);
-      setStartDate(leave.startDate);
-      setEndDate(leave.endDate);
+      setEmployee(leave.employee._id);
+      setStartDate(formatDateForInput(leave.startDate));
+      setEndDate(formatDateForInput(leave.endDate));
     } else {
       setEmployee("");
       setStartDate("");
@@ -37,6 +37,11 @@ const LeaveForm = ({ onSave, onClose, leave }) => {
     onClose();
   };
 
+  const formatDateForInput = (date) => {
+    const d = new Date(date);
+    return d.toISOString().substring(0, 16); // Format datetime-local
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
@@ -49,6 +54,7 @@ const LeaveForm = ({ onSave, onClose, leave }) => {
         <select
           id="employee"
           onChange={(e) => setEmployee(e.target.value)}
+          value={employee}
           className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white"
           required
         >

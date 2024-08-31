@@ -16,6 +16,7 @@ import apis from "../services/api.js";
 import Button from "./common/Button.js";
 import Modal from "./common/Modal";
 import LeaveForm from "./LeaveForm.js";
+import Dropdown from "./common/Dropdown.js";
 
 const LeaveOverview = () => {
   const currentYear = new Date().getFullYear();
@@ -60,6 +61,7 @@ const LeaveOverview = () => {
       })
       .map((leave) => ({
         employee: leave.employee,
+        leave: leave,
         leaveDateToStr:
           new Date(leave.startDate).toLocaleDateString() ===
           new Date(leave.endDate).toLocaleDateString()
@@ -93,9 +95,18 @@ const LeaveOverview = () => {
   };
 
   const editLeave = (leaveId) => {
-    const leave = leaves.find((emp) => emp._id === leaveId);
+    const leave = leaves.find((l) => l._id === leaveId);
     setSelectedLeave(leave);
     setIsModalOpen(true);
+  };
+
+  const handleDeleteLeave = async (leaveId) => {
+    try {
+      await apis.deleteLeave(leaveId);
+      fetchLeaves();
+    } catch (error) {
+      console.error("Failed to delete leave", error);
+    }
   };
 
   const handleSaveLeave = async (leaveData) => {
@@ -194,19 +205,38 @@ const LeaveOverview = () => {
                 className="employee-names flex p-2 border-b border-gray-200  dark:border-gray-600"
               >
                 {employeesWithLeaves.length > 0 ? (
-                  employeesWithLeaves.map(({ employee, leaveDateToStr }) => (
-                    <div
-                      className="mr-2 p-2 rounded bg-gray-200 dark:bg-gray-700"
-                      key={`leave-${i}-${employee._id}`}
-                    >
-                      <span>
-                        {employee.firstName} {employee.lastName}
-                      </span>
-                      <span className="ml-2 text-gray-500 dark:text-gray-400">
-                        ({leaveDateToStr})
-                      </span>
-                    </div>
-                  ))
+                  employeesWithLeaves.map(
+                    ({ employee, leave, leaveDateToStr }) => (
+                      <div
+                        className="flex mr-2 rounded bg-gray-200 dark:bg-gray-700"
+                        key={`leave-${leave._id}`}
+                      >
+                        <div className="p-2">
+                          <span>
+                            {employee.firstName} {employee.lastName}
+                          </span>
+                          <span className="ml-2 text-gray-500 dark:text-gray-400">
+                            ({leaveDateToStr})
+                          </span>
+                        </div>
+                        <div className="self-center">
+                          <Dropdown
+                            options={[
+                              {
+                                label: "Edit",
+                                onClick: () => editLeave(leave._id),
+                              },
+                              {
+                                label: "Delete",
+                                onClick: () => handleDeleteLeave(leave._id),
+                                danger: true,
+                              },
+                            ]}
+                          />
+                        </div>
+                      </div>
+                    )
+                  )
                 ) : (
                   <div className="no-employees p-2">&nbsp;</div>
                 )}
@@ -218,7 +248,7 @@ const LeaveOverview = () => {
 
       <Modal
         isOpen={isModalOpen}
-        title="Add New Leave"
+        title={selectedLeave ? "Edit Leave" : "Add New Leave"}
         onClose={() => setIsModalOpen(false)}
       >
         <LeaveForm
