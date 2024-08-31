@@ -53,7 +53,16 @@ const LeaveOverview = () => {
           leaveEnd >= startOfWeek(weekStart, { weekStartsOn: 1 })
         );
       })
-      .map((leave) => leave.employee);
+      .map((leave) => ({
+        employee: leave.employee,
+        leaveDateToStr:
+          new Date(leave.startDate).toLocaleDateString() ===
+          new Date(leave.endDate).toLocaleDateString()
+            ? new Date(leave.startDate).toLocaleDateString()
+            : new Date(leave.startDate).toLocaleDateString() +
+              " - " +
+              new Date(leave.endDate).toLocaleDateString(),
+      }));
   };
 
   const handlePrevMonth = () => {
@@ -139,16 +148,22 @@ const LeaveOverview = () => {
             Employees
           </div>
           {weeks.map((weekStart, i) => {
-            const employees = getEmployeesForWeek(weekStart);
+            const employeesWithLeaves = getEmployeesForWeek(weekStart);
+
             return (
               <div
                 key={i}
                 className="employee-names p-2 border-b border-gray-200 dark:border-gray-600"
               >
-                {employees.length > 0 ? (
-                  employees.map((employee, j) => (
+                {employeesWithLeaves.length > 0 ? (
+                  employeesWithLeaves.map(({ employee, leaveDateToStr, j }) => (
                     <div key={j}>
-                      {employee.firstName} {employee.lastName}
+                      <span>
+                        {employee.firstName} {employee.lastName}
+                      </span>
+                      <span className="ml-2 text-gray-500 dark:text-gray-400">
+                        ({leaveDateToStr})
+                      </span>
                     </div>
                   ))
                 ) : (
