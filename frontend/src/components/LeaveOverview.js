@@ -91,6 +91,7 @@ const LeaveOverview = () => {
   };
 
   const addLeave = () => {
+    setSelectedLeave(null);
     setIsModalOpen(true);
   };
 
