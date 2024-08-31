@@ -11,6 +11,7 @@ const Button = ({
   size = "md",
   disabled = false,
   className = "",
+  title = "",
 }) => {
   const buttonClass = classNames(
     "btn",
@@ -26,6 +27,7 @@ const Button = ({
       className={buttonClass}
       onClick={onClick}
       disabled={disabled}
+      title={title}
     >
       {label}
     </button>
@@ -33,10 +35,17 @@ const Button = ({
 };
 
 Button.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(["button", "submit", "reset"]),
-  variant: PropTypes.oneOf(["primary", "secondary", "danger", "success"]),
+  variant: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "danger",
+    "success",
+    "transparent",
+    false,
+  ]),
   size: PropTypes.oneOf(["sm", "md", "lg"]),
   disabled: PropTypes.bool,
   className: PropTypes.string,

@@ -51,7 +51,7 @@ const EmployeeForm = ({ onSave, onClose, employee }) => {
           id="lastName"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          className="bw-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white"
+          className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white"
           required
         />
       </div>

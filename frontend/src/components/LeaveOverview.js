@@ -10,9 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
+  faCalendarPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import apis from "../services/api.js";
 import Button from "./common/Button.js";
+import Modal from "./common/Modal";
+import LeaveForm from "./LeaveForm.js";
 
 const LeaveOverview = () => {
   const currentYear = new Date().getFullYear();
@@ -22,6 +25,8 @@ const LeaveOverview = () => {
   const [month, setMonth] = useState(currentMonth);
   const [weeks, setWeeks] = useState([]);
   const [leaves, setLeaves] = useState([]);
+  const [selectedLeave, setSelectedLeave] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     updateWeeks();
@@ -83,12 +88,45 @@ const LeaveOverview = () => {
     }
   };
 
+  const addLeave = () => {
+    setIsModalOpen(true);
+  };
+
+  const editLeave = (leaveId) => {
+    const leave = leaves.find((emp) => emp._id === leaveId);
+    setSelectedLeave(leave);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveLeave = async (leaveData) => {
+    try {
+      selectedLeave
+        ? await apis.updateLeave(selectedLeave._id, leaveData)
+        : await apis.createLeave(leaveData);
+      fetchLeaves();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Failed to save leave", error);
+    }
+  };
+
   return (
     <div className="leave-overview">
+      {/* Header */}
+      <div className="flex items-center mb-4 text-xl font-bold dark:text-gray-200">
+        <h2>Leaves Overview</h2>
+        <Button
+          onClick={addLeave}
+          variant="transparent"
+          size="sm"
+          label={<FontAwesomeIcon icon={faCalendarPlus} />}
+          title="Add new leave"
+        />
+      </div>
       {/* Action Menu */}
-      <div className="header flex justify-between dark:text-gray-200 py-4 dark:border-gray-600">
+      <div className="flex justify-between dark:text-gray-200 pb-4 dark:border-gray-600">
         {/* Date select */}
-        <div class="input-group">
+        <div className="input-group">
           <Button
             onClick={handlePrevMonth}
             className="btn btn-secondary rounded-l"
@@ -100,7 +138,7 @@ const LeaveOverview = () => {
             onChange={(e) => setMonth(parseInt(e.target.value, 10))}
           >
             {Array.from({ length: 12 }).map((_, i) => (
-              <option key={i} value={i}>
+              <option key={`month-${i}`} value={i}>
                 {new Date(year, i).toLocaleString("default", { month: "long" })}
               </option>
             ))}
@@ -119,7 +157,7 @@ const LeaveOverview = () => {
             onChange={(e) => setYear(parseInt(e.target.value, 10))}
           >
             {Array.from({ length: 10 }).map((_, i) => (
-              <option key={i} value={currentYear - 5 + i}>
+              <option key={`year-${i}`} value={currentYear - 5 + i}>
                 {currentYear - 5 + i}
               </option>
             ))}
@@ -135,8 +173,8 @@ const LeaveOverview = () => {
           </div>
           {weeks.map((weekStart, i) => (
             <div
-              key={i}
-              className="week-number p-2 border-b border-gray-200 dark:border-gray-600"
+              key={`week-${i}`}
+              className="week-number p-4 border-b border-gray-200 dark:border-gray-600"
             >
               {getWeek(weekStart)}
             </div>
@@ -152,12 +190,15 @@ const LeaveOverview = () => {
 
             return (
               <div
-                key={i}
-                className="employee-names p-2 border-b border-gray-200 dark:border-gray-600"
+                key={`employee-${i}`}
+                className="employee-names flex p-2 border-b border-gray-200  dark:border-gray-600"
               >
                 {employeesWithLeaves.length > 0 ? (
-                  employeesWithLeaves.map(({ employee, leaveDateToStr, j }) => (
-                    <div key={j}>
+                  employeesWithLeaves.map(({ employee, leaveDateToStr }) => (
+                    <div
+                      className="mr-2 p-2 rounded bg-gray-200 dark:bg-gray-700"
+                      key={`leave-${i}-${employee._id}`}
+                    >
                       <span>
                         {employee.firstName} {employee.lastName}
                       </span>
@@ -167,13 +208,25 @@ const LeaveOverview = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="no-employees">&nbsp;</div>
+                  <div className="no-employees p-2">&nbsp;</div>
                 )}
               </div>
             );
           })}
         </div>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        title="Add New Leave"
+        onClose={() => setIsModalOpen(false)}
+      >
+        <LeaveForm
+          onSave={handleSaveLeave}
+          onClose={() => setIsModalOpen(false)}
+          leave={selectedLeave}
+        />
+      </Modal>
     </div>
   );
 };

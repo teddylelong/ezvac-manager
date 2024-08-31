@@ -5,7 +5,7 @@ import Modal from "./common/Modal";
 import EmployeeForm from "./EmployeeForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "./common/Dropdown.js";
 
 const EmployeeList = () => {
@@ -66,7 +66,8 @@ const EmployeeList = () => {
             onClick={addEmployee}
             variant="transparent"
             size="sm"
-            label={<FontAwesomeIcon icon={faPlus} />}
+            label={<FontAwesomeIcon icon={faUserPlus} />}
+            title="Add new employee"
           />
         </div>
       </div>
