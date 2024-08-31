@@ -139,77 +139,94 @@ const LeaveOverview = () => {
   return (
     <div className="leave-overview">
       {/* Header */}
-      <div className="flex items-center mb-4 text-xl font-bold dark:text-gray-200">
-        <h2>Leaves Overview</h2>
-        <Button
-          onClick={addLeave}
-          variant="transparent"
-          size="sm"
-          label={<FontAwesomeIcon icon={faCalendarPlus} />}
-          title="Add new leave"
-        />
-      </div>
-      {/* Action Menu */}
-      <div className="flex justify-between dark:text-gray-200 pb-4 dark:border-gray-600">
-        {/* Date select */}
-        <div className="input-group">
+      <div className="sticky top-0 z-10 bg-white dark:bg-gray-800">
+        <div className="flex items-center p-4 text-xl font-bold dark:text-gray-200">
+          <h2>Leaves Overview</h2>
           <Button
-            onClick={handlePrevMonth}
-            className="btn btn-secondary rounded-l"
-            label={<FontAwesomeIcon icon={faChevronLeft} />}
-            disabled={viewMode === "year"}
-          ></Button>
-          <select
-            className="w-32"
-            value={month}
-            onChange={(e) => setMonth(parseInt(e.target.value, 10))}
-            disabled={viewMode === "year"}
-          >
-            {Array.from({ length: 12 }).map((_, i) => (
-              <option key={`month-${i}`} value={i}>
-                {new Date(year, i).toLocaleString("default", { month: "long" })}
-              </option>
-            ))}
-          </select>
-          <Button
-            onClick={handleNextMonth}
-            className="btn btn-secondary rounded-r"
-            label={<FontAwesomeIcon icon={faChevronRight} />}
-            disabled={viewMode === "year"}
-          ></Button>
-          {/* Year select */}
-          <select
-            value={year}
-            className="ml-4 rounded-md"
-            onChange={(e) => setYear(parseInt(e.target.value, 10))}
-          >
-            {Array.from({ length: 10 }).map((_, i) => (
-              <option key={`year-${i}`} value={currentYear - 5 + i}>
-                {currentYear - 5 + i}
-              </option>
-            ))}
-          </select>
+            onClick={addLeave}
+            variant="transparent"
+            size="sm"
+            label={<FontAwesomeIcon icon={faCalendarPlus} />}
+            title="Add new leave"
+          />
         </div>
 
-        <div className="input-group">
+        {/* Action Menu */}
+        <div className="flex justify-between px-4 dark:text-gray-200 dark:border-gray-600">
+          {/* Date select */}
+          <div className="input-group">
+            <Button
+              onClick={handlePrevMonth}
+              className="btn btn-secondary rounded-l"
+              label={<FontAwesomeIcon icon={faChevronLeft} />}
+              disabled={viewMode === "year"}
+            ></Button>
+            <select
+              className="w-32"
+              value={month}
+              onChange={(e) => setMonth(parseInt(e.target.value, 10))}
+              disabled={viewMode === "year"}
+            >
+              {Array.from({ length: 12 }).map((_, i) => (
+                <option key={`month-${i}`} value={i}>
+                  {new Date(year, i).toLocaleString("default", {
+                    month: "long",
+                  })}
+                </option>
+              ))}
+            </select>
+            <Button
+              onClick={handleNextMonth}
+              className="btn btn-secondary rounded-r"
+              label={<FontAwesomeIcon icon={faChevronRight} />}
+              disabled={viewMode === "year"}
+            ></Button>
+            {/* Year select */}
+            <select
+              value={year}
+              className="ml-4 rounded-md"
+              onChange={(e) => setYear(parseInt(e.target.value, 10))}
+            >
+              {Array.from({ length: 10 }).map((_, i) => (
+                <option key={`year-${i}`} value={currentYear - 5 + i}>
+                  {currentYear - 5 + i}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* ViewMode select */}
-          <div className="flex items-center">
-            <ToggleSwitch
-              checked={viewMode === "year"}
-              onChange={handleToggleChange}
-              labelOn="Yearly"
-              labelOff="Monthly"
-            />
+          <div className="input-group">
+            <div className="flex items-center">
+              <ToggleSwitch
+                checked={viewMode === "year"}
+                onChange={handleToggleChange}
+                labelOn="Yearly"
+                labelOff="Monthly"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Colums Header */}
+        <div className="px-4 flex mt-4 dark:text-gray-200">
+          <div className="weeks-column w-1/5">
+            <div className="weeks-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-l-md dark:bg-gray-700 dark:border-gray-600">
+              Week
+            </div>
+          </div>
+          <div className="employees-column w-4/5">
+            <div className="employees-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-r-md dark:bg-gray-700 dark:border-gray-600">
+              Employees
+            </div>
           </div>
         </div>
       </div>
+
       {/* Overview */}
-      <div className="weeks-container flex dark:text-gray-200">
+      <div className="weeks-container px-4 flex mt-4 dark:text-gray-200">
         {/* Weeks Column */}
         <div className="weeks-column w-1/5">
-          <div className="weeks-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-l-md dark:bg-gray-700 dark:border-gray-600">
-            Week
-          </div>
           {weeks.map((weekStart, i) => (
             <div
               key={`week-${i}`}
@@ -221,9 +238,6 @@ const LeaveOverview = () => {
         </div>
         {/* Employee Column */}
         <div className="employees-column w-4/5">
-          <div className="employees-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-r-md dark:bg-gray-700 dark:border-gray-600">
-            Employees
-          </div>
           {weeks.map((weekStart, i) => {
             const employeesWithLeaves = getEmployeesForWeek(weekStart);
 

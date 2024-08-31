@@ -7,7 +7,7 @@ import { faMugHot } from "@fortawesome/free-solid-svg-icons";
 
 const ActionMenu = ({ toggleDarkMode, darkMode }) => {
   return (
-    <nav className="bg-gray-800 dark:bg-gray-900 p-4">
+    <nav className="bg-gray-800 dark:bg-gray-900 p-4 h-16">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white dark:text-gray-200 text-lg font-bold">
           <h1>
