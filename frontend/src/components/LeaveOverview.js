@@ -19,7 +19,7 @@ import LeaveForm from "./LeaveForm.js";
 import Dropdown from "./common/Dropdown.js";
 import ToggleSwitch from "./common/ToggleSwitch";
 
-const LeaveOverview = () => {
+const LeaveOverview = ({ leaves, fetchLeaves }) => {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth();
 
@@ -27,7 +27,6 @@ const LeaveOverview = () => {
   const [year, setYear] = useState(currentYear);
   const [month, setMonth] = useState(currentMonth);
   const [weeks, setWeeks] = useState([]);
-  const [leaves, setLeaves] = useState([]);
   const [selectedLeave, setSelectedLeave] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -56,11 +55,6 @@ const LeaveOverview = () => {
       { weekStartsOn: 1 }
     );
     setWeeks(weeksInInterval);
-  };
-
-  const fetchLeaves = async () => {
-    const response = await apis.getLeaves();
-    setLeaves(response.data);
   };
 
   const getEmployeesForWeek = (weekStart) => {

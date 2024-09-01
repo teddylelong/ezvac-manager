@@ -6,7 +6,12 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const EmployeeLayout = ({ children, toggleSidebar, isCollapsed }) => {
+const EmployeeLayout = ({
+  children,
+  toggleSidebar,
+  isCollapsed,
+  fetchLeaves,
+}) => {
   const [isContentVisible, setIsContentVisible] = useState(!isCollapsed);
 
   useEffect(() => {
@@ -36,7 +41,7 @@ const EmployeeLayout = ({ children, toggleSidebar, isCollapsed }) => {
             isContentVisible ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          <EmployeeList />
+          <EmployeeList fetchLeaves={fetchLeaves} />
         </div>
         <button
           onClick={toggleSidebar}

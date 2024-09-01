@@ -8,7 +8,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "./common/Dropdown.js";
 
-const EmployeeList = () => {
+const EmployeeList = ({ fetchLeaves }) => {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -39,6 +39,7 @@ const EmployeeList = () => {
         ? await apis.updateEmployee(selectedEmployee._id, employeeData)
         : await apis.createEmployee(employeeData);
       fetchEmployees();
+      fetchLeaves();
       setIsModalOpen(false);
     } catch (error) {
       console.error("Failed to save employee", error);
@@ -49,6 +50,7 @@ const EmployeeList = () => {
     try {
       await apis.deleteEmployee(employeeId);
       fetchEmployees();
+      fetchLeaves();
     } catch (error) {
       console.error("Failed to delete employee", error);
     }
