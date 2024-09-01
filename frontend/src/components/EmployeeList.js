@@ -76,7 +76,7 @@ const EmployeeList = ({ fetchLeaves }) => {
       <ul className="px-4">
         {employees.map((employee) => (
           <li
-            className="flex mb-2 p-4 rounded-md shadow-md bg-gray-200 dark:bg-gray-600"
+            className={`flex mb-2 p-4 rounded-md shadow-md ${employee.color}`}
             key={employee._id}
           >
             <div className="w-2/3">

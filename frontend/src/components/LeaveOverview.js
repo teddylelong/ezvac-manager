@@ -254,7 +254,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
                     {employeesWithLeaves.map(
                       ({ employee, leave, leaveDays, leaveDateToStr }) => (
                         <div
-                          className="mr-4 shadow-md rounded bg-gray-200 dark:bg-gray-700 flex self-start"
+                          className={`mr-4 shadow-md rounded flex self-start ${employee.color}`}
                           key={`leave-${leave._id}`}
                         >
                           <div className="p-2">
@@ -262,11 +262,11 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
                               <span>
                                 {employee.firstName} {employee.lastName}
                               </span>
-                              <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
+                              <span className="ml-2 text-sm text-gray-500 dark:text-gray-300">
                                 {leaveDays} day{leaveDays > 1 ? "s" : ""}
                               </span>
                             </div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                            <div className="text-sm text-gray-500 dark:text-gray-300">
                               {leaveDateToStr}
                             </div>
                           </div>

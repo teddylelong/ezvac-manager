@@ -10,6 +10,11 @@ const EmployeeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    color: {
+      type: String,
+      required: false,
+      default: "#ffffff",
+    },
   },
   {
     timestamps: true,
