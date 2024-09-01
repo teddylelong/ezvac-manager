@@ -6,6 +6,7 @@ import LeaveCalendar from "./components/LeaveCalendar";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false); // État pour la sidebar
 
   useEffect(() => {
     if (darkMode) {
@@ -19,13 +20,37 @@ const App = () => {
     setDarkMode(!darkMode);
   };
 
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
     <Router>
       <div className="text-gray-800">
-        <ActionMenu toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+        <ActionMenu
+          toggleDarkMode={toggleDarkMode}
+          darkMode={darkMode}
+          toggleSidebar={toggleSidebar}
+        />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/calendar" element={<LeaveCalendar />} />
+          <Route
+            path="/"
+            element={
+              <HomePage
+                isCollapsed={isCollapsed}
+                toggleSidebar={toggleSidebar}
+              />
+            }
+          />
+          <Route
+            path="/calendar"
+            element={
+              <LeaveCalendar
+                isCollapsed={isCollapsed}
+                toggleSidebar={toggleSidebar}
+              />
+            }
+          />
         </Routes>
       </div>
     </Router>

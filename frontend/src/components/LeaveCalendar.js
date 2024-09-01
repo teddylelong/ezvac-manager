@@ -21,7 +21,7 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const LeaveCalendar = () => {
+const LeaveCalendar = ({ isCollapsed, toggleSidebar }) => {
   const [leaves, setLeaves] = useState([]);
 
   useEffect(() => {
@@ -40,8 +40,8 @@ const LeaveCalendar = () => {
   };
 
   return (
-    <EmployeeLayout>
-      <h2 className="mb-4 text-xl font-bold dark:text-gray-200">
+    <EmployeeLayout isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}>
+      <h2 className="p-4 text-xl font-bold dark:text-gray-200">
         <FontAwesomeIcon icon={faCalendar} className="mr-2" />
         Leave Calendar
       </h2>
@@ -50,7 +50,11 @@ const LeaveCalendar = () => {
         events={leaves}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500 }}
+        style={{
+          height: "calc(100vh - 12rem)",
+          minHeight: "500px",
+        }}
+        className="px-4 mt-2"
       />
     </EmployeeLayout>
   );

@@ -19,28 +19,24 @@ const ActionMenu = ({ toggleDarkMode, darkMode }) => {
             to="/"
             className="text-gray-300 dark:text-gray-400 hover:bg-gray-700 dark:hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            Home
-          </Link>
-          <Link
-            to="/employees"
-            className="text-gray-300 dark:text-gray-400 hover:bg-gray-700 dark:hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-          >
-            Employees
+            Overview
           </Link>
           <Link
             to="/calendar"
             className="text-gray-300 dark:text-gray-400 hover:bg-gray-700 dark:hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            Leaves Calendar
+            Calendar
           </Link>
           <Button
             onClick={toggleDarkMode}
             variant={false}
             label={
-              <FontAwesomeIcon
-                icon={darkMode ? faSun : faMoon}
-                className="mr-2"
-              />
+              <div className="flex items-center justify-center w-5 h-5">
+                <FontAwesomeIcon
+                  icon={darkMode ? faSun : faMoon}
+                  className="text-sm"
+                />
+              </div>
             }
             className="text-gray-300 dark:text-gray-400 hover:bg-gray-700 dark:hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           ></Button>

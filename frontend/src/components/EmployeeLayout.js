@@ -1,16 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import EmployeeList from "./EmployeeList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
-const EmployeeLayout = ({ children }) => {
+const EmployeeLayout = ({ children, toggleSidebar, isCollapsed }) => {
+  const [isContentVisible, setIsContentVisible] = useState(!isCollapsed);
+
+  useEffect(() => {
+    if (!isCollapsed) {
+      const timer = setTimeout(() => {
+        setIsContentVisible(true);
+      }, 150);
+
+      return () => clearTimeout(timer);
+    } else {
+      setIsContentVisible(false);
+    }
+  }, [isCollapsed]);
+
   return (
     <div
       className="flex dark:bg-gray-800"
       style={{ height: "calc(100vh - 4rem)" }}
     >
-      <div className="w-1/4 border-r dark:border-gray-700 overflow-y-auto">
-        <EmployeeList />
+      <div
+        className={`drawer relative border-r dark:border-gray-700 transition-all duration-300 ${
+          isCollapsed ? "w-0 opened" : "w-2/12 closed"
+        }`}
+      >
+        <div
+          className={`transition-opacity duration-300 ${
+            isContentVisible ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
+        >
+          <EmployeeList />
+        </div>
+        <button
+          onClick={toggleSidebar}
+          className={`btn-transparent btn-sm bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow-md z-10 cursor-pointer h-1/6
+                      absolute top-1/2 -right-3 transform -translate-y-1/2
+                      transition ease-in-out delay-150 ${
+                        isCollapsed ? "hover:translate-x-2" : ""
+                      }`}
+        >
+          <FontAwesomeIcon
+            icon={isCollapsed ? faChevronRight : faChevronLeft}
+          />
+        </button>
       </div>
-      <div className="w-3/4 overflow-y-scroll">{children}</div>
+      <div className="flex-grow overflow-y-scroll">{children}</div>
     </div>
   );
 };

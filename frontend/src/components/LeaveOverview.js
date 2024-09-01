@@ -210,12 +210,12 @@ const LeaveOverview = () => {
 
         {/* Colums Header */}
         <div className="px-4 flex mt-4 dark:text-gray-200">
-          <div className="weeks-column w-1/5">
+          <div className="weeks-column w-1/6">
             <div className="weeks-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-l-md dark:bg-gray-700 dark:border-gray-600">
               Week
             </div>
           </div>
-          <div className="employees-column w-4/5">
+          <div className="employees-column w-5/6">
             <div className="employees-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-r-md dark:bg-gray-700 dark:border-gray-600">
               Employees
             </div>
@@ -224,9 +224,9 @@ const LeaveOverview = () => {
       </div>
 
       {/* Overview */}
-      <div className="weeks-container px-4 flex mt-4 dark:text-gray-200">
+      <div className="weeks-container px-4 flex dark:text-gray-200">
         {/* Weeks Column */}
-        <div className="weeks-column w-1/5">
+        <div className="weeks-column w-1/6">
           {weeks.map((weekStart, i) => (
             <div
               key={`week-${i}`}
@@ -237,7 +237,7 @@ const LeaveOverview = () => {
           ))}
         </div>
         {/* Employee Column */}
-        <div className="employees-column w-4/5">
+        <div className="employees-column w-5/6">
           {weeks.map((weekStart, i) => {
             const employeesWithLeaves = getEmployeesForWeek(weekStart);
 
