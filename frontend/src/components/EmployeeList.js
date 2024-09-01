@@ -57,8 +57,8 @@ const EmployeeList = ({ fetchLeaves }) => {
   };
 
   return (
-    <div>
-      <div className="flex items-center p-4 text-xl font-bold dark:text-gray-200">
+    <div className="dark:text-gray-200">
+      <div className="flex items-center p-4 text-xl font-bold ">
         <h2 className="w-2/3">
           <FontAwesomeIcon icon={faUser} className="mr-2" />
           Employees
@@ -73,7 +73,7 @@ const EmployeeList = ({ fetchLeaves }) => {
           />
         </div>
       </div>
-      <ul className="px-4 dark:text-gray-200">
+      <ul className="px-4">
         {employees.map((employee) => (
           <li
             className="flex mb-2 p-4 rounded-md shadow-md bg-gray-200 dark:bg-gray-600"
