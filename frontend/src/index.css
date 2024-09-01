@@ -12,12 +12,12 @@ body {
 }
 
 html[class="dark"] {
-  background-color: #1f2937;
+  @apply bg-gray-700;
 }
 
 /* employee-layout */
 .employee-layout > div {
-  height: "calc(100vh - 4rem)"
+  height: calc(100vh - 4rem);
 }
 
 /* Forms */

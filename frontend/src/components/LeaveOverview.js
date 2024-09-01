@@ -160,12 +160,15 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
         <div className="flex justify-between px-4 dark:text-gray-200 dark:border-gray-600">
           {/* Date select */}
           <div className="input-group">
+            {/* Prev */}
             <Button
               onClick={handlePrevMonth}
               className="btn btn-secondary rounded-l"
               label={<FontAwesomeIcon icon={faChevronLeft} />}
               disabled={viewMode === "year"}
             ></Button>
+
+            {/* Month */}
             <select
               className="w-32"
               value={month}
@@ -180,13 +183,16 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
                 </option>
               ))}
             </select>
+
+            {/* Next */}
             <Button
               onClick={handleNextMonth}
               className="btn btn-secondary rounded-r"
               label={<FontAwesomeIcon icon={faChevronRight} />}
               disabled={viewMode === "year"}
             ></Button>
-            {/* Year select */}
+
+            {/* Year */}
             <select
               value={year}
               className="ml-4 rounded-md"
@@ -248,7 +254,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
                     {employeesWithLeaves.map(
                       ({ employee, leave, leaveDays, leaveDateToStr }) => (
                         <div
-                          className="mr-2 rounded bg-gray-200 dark:bg-gray-700 flex self-start"
+                          className="mr-4 shadow-md rounded bg-gray-200 dark:bg-gray-700 flex self-start"
                           key={`leave-${leave._id}`}
                         >
                           <div className="p-2">

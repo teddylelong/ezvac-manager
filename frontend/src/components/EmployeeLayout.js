@@ -27,10 +27,7 @@ const EmployeeLayout = ({
   }, [isCollapsed]);
 
   return (
-    <div
-      className="flex dark:bg-gray-800"
-      style={{ height: "calc(100vh - 4rem)" }}
-    >
+    <div className="employee-layout flex dark:bg-gray-800">
       <div
         className={`drawer relative border-r dark:border-gray-700 transition-all duration-300 ${
           isCollapsed ? "w-0 opened" : "w-2/12 closed"
