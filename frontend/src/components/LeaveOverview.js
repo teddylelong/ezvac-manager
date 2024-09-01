@@ -70,6 +70,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
       .map((leave) => ({
         employee: leave.employee,
         leave: leave,
+        leaveDays: countLeaveDays(leave.startDate, leave.endDate),
         leaveDateToStr:
           new Date(leave.startDate).toLocaleDateString() ===
           new Date(leave.endDate).toLocaleDateString()
@@ -78,6 +79,16 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
               " - " +
               new Date(leave.endDate).toLocaleDateString(),
       }));
+  };
+
+  const countLeaveDays = (date1, date2) => {
+    const startDate = new Date(date1);
+    const endDate = new Date(date2);
+
+    const differenceInTime = endDate.getTime() - startDate.getTime();
+    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+
+    return differenceInDays;
   };
 
   const handlePrevMonth = () => {
@@ -204,12 +215,12 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
 
         {/* Colums Header */}
         <div className="px-4 flex mt-4 dark:text-gray-200">
-          <div className="weeks-column w-1/6">
+          <div className="weeks-column w-1/12">
             <div className="weeks-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-l-md dark:bg-gray-700 dark:border-gray-600">
               Week
             </div>
           </div>
-          <div className="employees-column w-5/6">
+          <div className="employees-column w-11/12">
             <div className="employees-header font-bold p-2 bg-gray-200 border-y border-gray-200 rounded-r-md dark:bg-gray-700 dark:border-gray-600">
               Employees
             </div>
@@ -218,68 +229,67 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
       </div>
 
       {/* Overview */}
-      <div className="weeks-container px-4 flex dark:text-gray-200">
-        {/* Weeks Column */}
-        <div className="weeks-column w-1/6">
-          {weeks.map((weekStart, i) => (
-            <div
-              key={`week-${i}`}
-              className="week-number p-4 border-b border-gray-200 dark:border-gray-600"
-            >
-              {getWeek(weekStart)}
-            </div>
-          ))}
-        </div>
-        {/* Employee Column */}
-        <div className="employees-column w-5/6">
-          {weeks.map((weekStart, i) => {
-            const employeesWithLeaves = getEmployeesForWeek(weekStart);
+      <div className="weeks-container grid grid-cols-12 gap-0 px-4 dark:text-gray-200">
+        {/* Weeks and Employees Container */}
+        {weeks.map((weekStart, i) => {
+          const employeesWithLeaves = getEmployeesForWeek(weekStart);
 
-            return (
-              <div
-                key={`employee-${i}`}
-                className="employee-names flex p-2 border-b border-gray-200  dark:border-gray-600"
-              >
+          return (
+            <React.Fragment key={`row-${i}`}>
+              {/* Week Column */}
+              <div className="week-number col-span-1 flex items-center p-4 border-b border-gray-200 dark:border-gray-600">
+                {getWeek(weekStart)}
+              </div>
+
+              {/* Employee Column */}
+              <div className="employee-names col-span-11 p-4 border-b border-gray-200 dark:border-gray-600">
                 {employeesWithLeaves.length > 0 ? (
-                  employeesWithLeaves.map(
-                    ({ employee, leave, leaveDateToStr }) => (
-                      <div
-                        className="flex mr-2 rounded bg-gray-200 dark:bg-gray-700"
-                        key={`leave-${leave._id}`}
-                      >
-                        <div className="p-2">
-                          <span>
-                            {employee.firstName} {employee.lastName}
-                          </span>
-                          <span className="ml-2 text-gray-500 dark:text-gray-400">
-                            ({leaveDateToStr})
-                          </span>
+                  <div className="flex flex-wrap">
+                    {employeesWithLeaves.map(
+                      ({ employee, leave, leaveDays, leaveDateToStr }) => (
+                        <div
+                          className="mr-2 rounded bg-gray-200 dark:bg-gray-700 flex self-start"
+                          key={`leave-${leave._id}`}
+                        >
+                          <div className="p-2">
+                            <div>
+                              <span>
+                                {employee.firstName} {employee.lastName}
+                              </span>
+                              <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
+                                {leaveDays} day{leaveDays > 1 ? "s" : ""}
+                              </span>
+                            </div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                              {leaveDateToStr}
+                            </div>
+                          </div>
+                          <div className="self-start">
+                            <Dropdown
+                              options={[
+                                {
+                                  label: "Edit",
+                                  onClick: () => editLeave(leave._id),
+                                },
+                                {
+                                  label: "Delete",
+                                  onClick: () => handleDeleteLeave(leave._id),
+                                  danger: true,
+                                },
+                              ]}
+                            />
+                          </div>
                         </div>
-                        <div className="self-center">
-                          <Dropdown
-                            options={[
-                              {
-                                label: "Edit",
-                                onClick: () => editLeave(leave._id),
-                              },
-                              {
-                                label: "Delete",
-                                onClick: () => handleDeleteLeave(leave._id),
-                                danger: true,
-                              },
-                            ]}
-                          />
-                        </div>
-                      </div>
-                    )
-                  )
+                      )
+                    )}
+                  </div>
                 ) : (
                   <div className="no-employees p-2">&nbsp;</div>
                 )}
               </div>
-            );
-          })}
-        </div>
+            </React.Fragment>
+          );
+        })}
       </div>
 
       <Modal
