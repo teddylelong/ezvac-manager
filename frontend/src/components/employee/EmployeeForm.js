@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import Button from "../common/Button";
 
 const EmployeeForm = ({ onSave, onClose, employee }) => {
   const [firstName, setFirstName] = useState("");
@@ -107,16 +108,14 @@ const EmployeeForm = ({ onSave, onClose, employee }) => {
       </div>
 
       <div className="flex justify-end">
-        <button
-          type="button"
+        <Button
+          variant="secondary"
           onClick={onClose}
-          className="mr-2 btn btn-secondary rounded-md"
-        >
-          Cancel
-        </button>
-        <button type="submit" className="btn btn-primary rounded-md">
-          Save
-        </button>
+          className="mr-2 rounded-md"
+          label="Cancel"
+        ></Button>
+
+        <Button type="submit" className="rounded-md" label="Save"></Button>
       </div>
     </form>
   );
