@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { eachWeekOfInterval, startOfWeek, endOfWeek } from "date-fns";
+import { eachWeekOfInterval, startOfWeek, endOfWeek, addDays } from "date-fns";
 import apis from "../../services/api";
 import LeaveHeader from "./LeaveHeader";
 import WeekNavigation from "./WeekNavigation";
@@ -39,6 +39,37 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
       { weekStartsOn: 1 }
     );
     setWeeks(weeksInInterval);
+  };
+
+  const handleDropLeave = async (leave, newWeekStart) => {
+    const oldWeekStart = startOfWeek(new Date(leave.startDate), {
+      weekStartsOn: 1,
+    });
+
+    const dayDifference =
+      new Date(newWeekStart).getTime() - oldWeekStart.getTime();
+
+    const weekDifferenceInDays = Math.floor(dayDifference / (1000 * 3600 * 24));
+
+    const newStartDate = addDays(
+      new Date(leave.startDate),
+      weekDifferenceInDays
+    );
+    const newEndDate = addDays(new Date(leave.endDate), weekDifferenceInDays);
+
+    const updatedLeave = {
+      ...leave,
+      startDate: newStartDate,
+      endDate: newEndDate,
+      employee: leave.employee._id,
+    };
+
+    try {
+      await apis.updateLeave(leave._id, updatedLeave);
+      fetchLeaves();
+    } catch (error) {
+      console.error("Failed to update leave", error);
+    }
   };
 
   const getEmployeesForWeek = (weekStart) => {
@@ -136,6 +167,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
             employeesWithLeaves={getEmployeesForWeek(weekStart)}
             editLeave={editLeave}
             handleDeleteLeave={handleDeleteLeave}
+            handleDropLeave={handleDropLeave}
             isEven={i % 2 === 0}
           />
         ))}
