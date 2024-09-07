@@ -16,8 +16,18 @@ html[class="dark"] {
 }
 
 /* employee-layout */
-.employee-layout > div {
+.employee-layout {
   height: calc(100vh - 4rem);
+}
+
+/* Employee List */
+.employee-list {
+  direction: rtl;
+}
+
+.employee-list > .employee-list-header,
+.employee-list > ul {
+  direction: ltr;
 }
 
 /* Forms */

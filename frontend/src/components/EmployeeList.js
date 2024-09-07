@@ -57,8 +57,8 @@ const EmployeeList = ({ fetchLeaves }) => {
   };
 
   return (
-    <div className="dark:text-gray-200">
-      <div className="flex items-center p-4 text-xl font-bold ">
+    <div className="employee-list dark:text-gray-200 overflow-y-scroll h-[calc(100vh-4rem)]">
+      <div className="employee-list-header flex items-center p-4 text-xl font-bold bg-white dark:bg-gray-800 sticky top-0 z-10">
         <h2 className="w-2/3">
           <FontAwesomeIcon icon={faUser} className="mr-2" />
           Employees
@@ -76,7 +76,7 @@ const EmployeeList = ({ fetchLeaves }) => {
       <ul className="px-4">
         {employees.map((employee) => (
           <li
-            className={`flex mb-2 p-4 rounded-md shadow-md ${employee.color}`}
+            className={`flex mb-4 p-4 rounded-md shadow-md ${employee.color}`}
             key={employee._id}
           >
             <div className="w-2/3">
