@@ -7,15 +7,24 @@ const WeekRow = ({
   employeesWithLeaves,
   editLeave,
   handleDeleteLeave,
+  isEven,
 }) => (
   <>
     {/* Week Column */}
-    <div className="week-number col-span-1 flex items-center p-4 border-b border-gray-200 dark:border-gray-600">
+    <div
+      className={`week-number col-span-1 flex items-center p-4 border-b border-gray-200 dark:border-gray-600 ${
+        isEven ? "bg-gray-50 dark:bg-gray-700" : "bg-white dark:bg-gray-800"
+      }`}
+    >
       {getWeek(weekStart)}
     </div>
 
     {/* Employee Column */}
-    <div className="employee-names col-span-11 p-4 border-b border-gray-200 dark:border-gray-600">
+    <div
+      className={`employee-names col-span-11 p-4 border-b border-gray-200 dark:border-gray-600 ${
+        isEven ? "bg-gray-50 dark:bg-gray-700" : "bg-white dark:bg-gray-800"
+      }`}
+    >
       {employeesWithLeaves.length > 0 ? (
         <div className="flex flex-wrap">
           {employeesWithLeaves.map(

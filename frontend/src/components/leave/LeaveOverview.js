@@ -136,6 +136,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
             employeesWithLeaves={getEmployeesForWeek(weekStart)}
             editLeave={editLeave}
             handleDeleteLeave={handleDeleteLeave}
+            isEven={i % 2 === 0}
           />
         ))}
       </div>
