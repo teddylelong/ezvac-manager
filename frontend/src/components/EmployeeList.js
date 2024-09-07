@@ -19,7 +19,10 @@ const EmployeeList = ({ fetchLeaves }) => {
 
   const fetchEmployees = async () => {
     const response = await apis.getEmployees();
-    setEmployees(response.data);
+    const employees = response.data.sort((a, b) =>
+      a.lastName.toLowerCase().localeCompare(b.lastName.toLowerCase())
+    );
+    setEmployees(employees);
   };
 
   const addEmployee = () => {
@@ -80,7 +83,7 @@ const EmployeeList = ({ fetchLeaves }) => {
             key={employee._id}
           >
             <div className="w-2/3">
-              {employee.firstName} {employee.lastName}
+              {employee.lastName} {employee.firstName}
             </div>
             <div className="w-1/3 text-end">
               <Dropdown

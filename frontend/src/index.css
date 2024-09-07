@@ -26,7 +26,8 @@ html[class="dark"] {
 }
 
 .employee-list > .employee-list-header,
-.employee-list > ul {
+.employee-list > ul,
+.employee-list > div {
   direction: ltr;
 }
 
