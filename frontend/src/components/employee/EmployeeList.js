@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import apis from "../services/api.js";
-import Button from "./common/Button.js";
-import Modal from "./common/Modal";
-import EmployeeForm from "./EmployeeForm";
+import apis from "../../services/api.js";
+import Button from "../common/Button.js";
+import Modal from "../common/Modal.js";
+import EmployeeForm from "./EmployeeForm.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import Dropdown from "./common/Dropdown.js";
+import Dropdown from "../common/Dropdown.js";
 
 const EmployeeList = ({ fetchLeaves }) => {
   const [employees, setEmployees] = useState([]);

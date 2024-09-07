@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import ActionMenu from "./components/ActionMenu";
-import LeaveCalendar from "./components/LeaveCalendar";
+import LeaveCalendar from "./components/leave/LeaveCalendar";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);

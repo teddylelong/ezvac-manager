@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import apis from "../services/api";
+import apis from "../../services/api";
 
 const LeaveForm = ({ onSave, onClose, leave }) => {
   const [employees, setEmployees] = useState([]);

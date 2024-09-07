@@ -4,10 +4,10 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./LeaveCalendar.css";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import { enUS } from "date-fns/locale";
-import apis from "../services/api.js";
+import apis from "../../services/api.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
-import EmployeeLayout from "./EmployeeLayout";
+import EmployeeLayout from "../employee/EmployeeLayout.js";
 
 const locales = {
   "en-US": enUS,

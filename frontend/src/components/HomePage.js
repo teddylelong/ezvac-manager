@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import EmployeeLayout from "./EmployeeLayout";
-import LeaveOverview from "./LeaveOverview";
+import EmployeeLayout from "./employee/EmployeeLayout";
+import LeaveOverview from "./leave/LeaveOverview";
 import apis from "../services/api";
 
 const HomePage = ({ isCollapsed, toggleSidebar }) => {
