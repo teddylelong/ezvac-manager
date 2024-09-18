@@ -21,7 +21,7 @@ const EmployeeLeaveItem = ({
   return (
     <div
       ref={drag}
-      className={`mr-4 shadow-md rounded flex self-start ${employee.color} ${
+      className={`shadow-md rounded flex self-start ${employee.color} ${
         isDragging ? "opacity-50" : "opacity-100"
       }`}
     >

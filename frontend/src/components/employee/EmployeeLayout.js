@@ -53,7 +53,7 @@ const EmployeeLayout = ({
           />
         </button>
       </div>
-      <div className="flex-grow overflow-y-scroll">{children}</div>
+      <div className="flex-grow">{children}</div>
     </div>
   );
 };

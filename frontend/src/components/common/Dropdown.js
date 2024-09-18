@@ -53,7 +53,7 @@ const Dropdown = ({ options }) => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+        <div className="absolute right-0 z-10 mt-2 w-48 bg-white dark:bg-gray-600 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
           <div className="py-1">
             {options.map((option, index) => (
               <button

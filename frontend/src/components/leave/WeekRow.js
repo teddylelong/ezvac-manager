@@ -20,7 +20,7 @@ const WeekRow = ({
     <>
       {/* Week Column */}
       <div
-        className={`week-number col-span-1 flex items-center p-4 border-b border-gray-200 dark:border-gray-600 ${
+        className={`week-number min-h-24 col-span-1 flex flex-none items-center p-4 border-b border-gray-200 dark:border-gray-600 ${
           isEven ? "bg-gray-50 dark:bg-gray-700" : "bg-white dark:bg-gray-800"
         }`}
       >
@@ -30,13 +30,13 @@ const WeekRow = ({
       {/* Employee Column */}
       <div
         ref={drop}
-        className={`employee-names col-span-11 p-4 border-b border-gray-200 dark:border-gray-600 ${
+        className={`employee-names min-h-24 col-span-11 flex flex-none p-4 border-b border-gray-200 dark:border-gray-600 ${
           isEven ? "bg-gray-50 dark:bg-gray-700" : "bg-white dark:bg-gray-800"
         }`}
       >
-        {employeesWithLeaves.length > 0 ? (
-          <div className="flex flex-wrap">
-            {employeesWithLeaves.map(
+        <div className="flex flex-wrap gap-4">
+          {employeesWithLeaves.length > 0 &&
+            employeesWithLeaves.map(
               ({ employee, leave, leaveDays, leaveDateToStr }) => (
                 <EmployeeLeaveItem
                   key={leave._id}
@@ -49,10 +49,7 @@ const WeekRow = ({
                 />
               )
             )}
-          </div>
-        ) : (
-          <div className="no-employees p-2">&nbsp;</div>
-        )}
+        </div>
       </div>
     </>
   );

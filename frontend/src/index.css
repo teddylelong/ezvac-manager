@@ -21,14 +21,14 @@ html[class="dark"] {
 }
 
 /* Employee List */
-.employee-list {
+.employee-list-body,
+.employee-list-body > div {
   direction: rtl;
 }
 
-.employee-list > .employee-list-header,
-.employee-list > ul,
-.employee-list > div {
+.employee-list-item {
   direction: ltr;
+  text-align: left;
 }
 
 /* Forms */

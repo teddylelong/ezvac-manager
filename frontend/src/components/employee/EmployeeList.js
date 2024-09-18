@@ -60,7 +60,7 @@ const EmployeeList = ({ fetchLeaves }) => {
   };
 
   return (
-    <div className="employee-list dark:text-gray-200 overflow-y-scroll h-[calc(100vh-4rem)]">
+    <div className="employee-list dark:text-gray-200">
       <div className="employee-list-header flex items-center p-4 text-xl font-bold bg-white dark:bg-gray-800 sticky top-0 z-10">
         <h2 className="w-2/3">
           <FontAwesomeIcon icon={faUser} className="mr-2" />
@@ -76,33 +76,35 @@ const EmployeeList = ({ fetchLeaves }) => {
           />
         </div>
       </div>
-      <ul className="px-4">
-        {employees.map((employee) => (
-          <li
-            className={`flex mb-4 p-4 rounded-md shadow-md ${employee.color}`}
-            key={employee._id}
-          >
-            <div className="w-2/3">
-              {employee.lastName} {employee.firstName}
-            </div>
-            <div className="w-1/3 text-end">
-              <Dropdown
-                options={[
-                  {
-                    label: "Edit",
-                    onClick: () => editEmployee(employee._id),
-                  },
-                  {
-                    label: "Delete",
-                    onClick: () => handleDeleteEmployee(employee._id),
-                    danger: true,
-                  },
-                ]}
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div className="employee-list-body">
+        <ul className="px-4 overflow-y-scroll h-[calc(100vh-8.5rem)]">
+          {employees.map((employee) => (
+            <li
+              className={`employee-list-item flex mb-4 p-4 rounded-md shadow-md ${employee.color}`}
+              key={employee._id}
+            >
+              <div className="w-2/3">
+                {employee.lastName} {employee.firstName}
+              </div>
+              <div className="w-1/3 text-end">
+                <Dropdown
+                  options={[
+                    {
+                      label: "Edit",
+                      onClick: () => editEmployee(employee._id),
+                    },
+                    {
+                      label: "Delete",
+                      onClick: () => handleDeleteEmployee(employee._id),
+                      danger: true,
+                    },
+                  ]}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <Modal
         isOpen={isModalOpen}

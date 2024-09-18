@@ -146,7 +146,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
 
   return (
     <div className="leave-overview">
-      <div className="sticky top-0 z-10 pb-4 bg-white dark:bg-gray-800">
+      <div className="pb-4 bg-white dark:bg-gray-800">
         <LeaveHeader addLeave={addLeave} />
         <WeekNavigation
           month={month}
@@ -159,7 +159,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
           handleToggleChange={handleToggleChange}
         />
       </div>
-      <div className="weeks-container grid grid-cols-12 gap-0 px-4 dark:text-gray-200">
+      <div className="weeks-container overflow-y-scroll h-[calc(100vh-12rem)] grid grid-cols-12 auto-rows-min gap-0 px-4 dark:text-gray-200">
         {weeks.map((weekStart, i) => (
           <WeekRow
             key={`row-${i}`}
