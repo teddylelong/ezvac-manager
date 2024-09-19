@@ -1,7 +1,7 @@
 import React from "react";
 import { useDrop } from "react-dnd";
 import EmployeeLeaveItem from "./EmployeeLeaveItem";
-import { getWeek } from "date-fns";
+import { getWeek, addHours, addDays } from "date-fns";
 
 const WeekRow = ({
   weekStart,
@@ -9,11 +9,26 @@ const WeekRow = ({
   editLeave,
   handleDeleteLeave,
   handleDropLeave,
+  handleDropEmployee,
   isEven,
 }) => {
-  const [, drop] = useDrop({
-    accept: "leave",
-    drop: (item) => handleDropLeave(item.leave, weekStart),
+  const [{ isOver }, drop] = useDrop({
+    accept: ["leave", "employee"],
+    drop: (item) => {
+      if (item.leave) {
+        handleDropLeave(item.leave, weekStart);
+      } else if (item.employee) {
+        const newLeave = {
+          employee: item.employee,
+          startDate: addHours(weekStart, 9), // Start Monday at 9:00
+          endDate: addHours(addDays(weekStart, 4), 18), // End Friday at 18:00
+        };
+        handleDropEmployee(newLeave);
+      }
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
   });
 
   return (

@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { eachWeekOfInterval, startOfWeek, endOfWeek, addDays } from "date-fns";
+import {
+  eachWeekOfInterval,
+  startOfWeek,
+  endOfWeek,
+  addDays,
+  setHours,
+  setMinutes,
+} from "date-fns";
 import apis from "../../services/api";
 import LeaveHeader from "./LeaveHeader";
 import WeekNavigation from "./WeekNavigation";
@@ -69,6 +76,19 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
       fetchLeaves();
     } catch (error) {
       console.error("Failed to update leave", error);
+    }
+  };
+
+  const handleDropEmployee = async (newLeave) => {
+    try {
+      await apis.createLeave({
+        employee: newLeave.employee._id,
+        startDate: newLeave.startDate,
+        endDate: newLeave.endDate,
+      });
+      fetchLeaves();
+    } catch (error) {
+      console.error("Failed to create leave", error);
     }
   };
 
@@ -168,6 +188,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
             editLeave={editLeave}
             handleDeleteLeave={handleDeleteLeave}
             handleDropLeave={handleDropLeave}
+            handleDropEmployee={handleDropEmployee}
             isEven={i % 2 === 0}
           />
         ))}
