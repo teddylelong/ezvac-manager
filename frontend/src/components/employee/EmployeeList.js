@@ -6,7 +6,7 @@ import EmployeeForm from "./EmployeeForm.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import Dropdown from "../common/Dropdown.js";
+import EmployeeItem from "./EmployeeItem.js";
 
 const EmployeeList = ({ fetchLeaves }) => {
   const [employees, setEmployees] = useState([]);
@@ -79,29 +79,12 @@ const EmployeeList = ({ fetchLeaves }) => {
       <div className="employee-list-body">
         <ul className="px-4 overflow-y-scroll h-[calc(100vh-8.5rem)]">
           {employees.map((employee) => (
-            <li
-              className={`employee-list-item flex mb-4 p-4 rounded-md shadow-md ${employee.color}`}
+            <EmployeeItem
               key={employee._id}
-            >
-              <div className="w-2/3">
-                {employee.lastName} {employee.firstName}
-              </div>
-              <div className="w-1/3 text-end">
-                <Dropdown
-                  options={[
-                    {
-                      label: "Edit",
-                      onClick: () => editEmployee(employee._id),
-                    },
-                    {
-                      label: "Delete",
-                      onClick: () => handleDeleteEmployee(employee._id),
-                      danger: true,
-                    },
-                  ]}
-                />
-              </div>
-            </li>
+              employee={employee}
+              editEmployee={editEmployee}
+              handleDeleteEmployee={handleDeleteEmployee}
+            />
           ))}
         </ul>
       </div>
