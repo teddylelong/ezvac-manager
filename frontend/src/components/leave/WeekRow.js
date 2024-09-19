@@ -2,6 +2,7 @@ import React from "react";
 import { useDrop } from "react-dnd";
 import EmployeeLeaveItem from "./EmployeeLeaveItem";
 import { getWeek, addHours, addDays } from "date-fns";
+import Label from "../common/Label";
 
 const WeekRow = ({
   weekStart,
@@ -39,7 +40,11 @@ const WeekRow = ({
           isEven ? "bg-gray-50 dark:bg-gray-700" : "bg-white dark:bg-gray-800"
         }`}
       >
-        {getWeek(weekStart)}
+        <Label
+          variant="secondary"
+          label={getWeek(weekStart)}
+          className="text-base shadow-sm"
+        />
       </div>
 
       {/* Employee Column */}
