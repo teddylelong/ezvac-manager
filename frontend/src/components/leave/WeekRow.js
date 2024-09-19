@@ -43,7 +43,7 @@ const WeekRow = ({
         <Label
           variant="secondary"
           label={getWeek(weekStart)}
-          className="text-base shadow-sm"
+          className="text-base shadow-sm w-10 text-center"
         />
       </div>
 
