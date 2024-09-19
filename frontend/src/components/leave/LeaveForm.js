@@ -40,9 +40,11 @@ const LeaveForm = ({ onSave, onClose, leave }) => {
 
   const formatDateForInput = (date) => {
     const d = new Date(date);
-    return d.toISOString().substring(0, 16); // Format datetime-local
-  };
+    const offset = d.getTimezoneOffset();
+    const localDate = new Date(d.getTime() - offset * 60 * 1000);
 
+    return localDate.toISOString().substring(0, 16); // Format datetime-local
+  };
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
