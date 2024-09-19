@@ -77,7 +77,7 @@ const EmployeeList = ({ fetchLeaves }) => {
         </div>
       </div>
       <div className="employee-list-body">
-        <ul className="px-4 overflow-y-scroll h-[calc(100vh-8.5rem)]">
+        <div className="px-4 overflow-y-scroll h-[calc(100vh-8.5rem)]">
           {employees.map((employee) => (
             <EmployeeItem
               key={employee._id}
@@ -86,7 +86,7 @@ const EmployeeList = ({ fetchLeaves }) => {
               handleDeleteEmployee={handleDeleteEmployee}
             />
           ))}
-        </ul>
+        </div>
       </div>
 
       <Modal

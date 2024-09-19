@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "../common/Dropdown";
 import { useDrag } from "react-dnd";
+import DraggableItem from "../common/DraggableItem";
 
 const EmployeeLeaveItem = ({
   employee,
@@ -10,22 +11,13 @@ const EmployeeLeaveItem = ({
   editLeave,
   deleteLeave,
 }) => {
-  const [{ isDragging }, drag] = useDrag({
-    type: "leave",
-    item: { id: leave._id, leave },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  });
-
   return (
-    <div
-      ref={drag}
-      className={`shadow-md rounded flex self-start ${employee.color} ${
-        isDragging ? "opacity-50" : "opacity-100"
-      }`}
+    <DraggableItem
+      type="leave"
+      item={{ id: leave._id, leave }}
+      className={`shadow-md rounded flex self-start ${employee.color}`}
     >
-      <div className="p-2 cursor-grab">
+      <div className="p-2">
         <div>
           <span>
             {employee.firstName} {employee.lastName}
@@ -46,7 +38,7 @@ const EmployeeLeaveItem = ({
           ]}
         />
       </div>
-    </div>
+    </DraggableItem>
   );
 };
 
