@@ -18,15 +18,15 @@ const HomePage = ({ isCollapsed, toggleSidebar }) => {
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <EmployeeLayout
-        isCollapsed={isCollapsed}
-        toggleSidebar={toggleSidebar}
-        fetchLeaves={fetchLeaves}
-      >
+    <EmployeeLayout
+      isCollapsed={isCollapsed}
+      toggleSidebar={toggleSidebar}
+      fetchLeaves={fetchLeaves}
+    >
+      <DndProvider backend={HTML5Backend}>
         <LeaveOverview leaves={leaves} fetchLeaves={fetchLeaves} />
-      </EmployeeLayout>
-    </DndProvider>
+      </DndProvider>
+    </EmployeeLayout>
   );
 };
 

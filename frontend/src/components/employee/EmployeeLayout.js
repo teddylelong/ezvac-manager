@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import EmployeeList from "./EmployeeList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import {
   faChevronLeft,
   faChevronRight,
@@ -38,7 +40,9 @@ const EmployeeLayout = ({
             isContentVisible ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          <EmployeeList fetchLeaves={fetchLeaves} />
+          <DndProvider backend={HTML5Backend}>
+            <EmployeeList fetchLeaves={fetchLeaves} />
+          </DndProvider>
         </div>
         <button
           onClick={toggleSidebar}
