@@ -27,6 +27,12 @@ const ActionMenu = ({ toggleDarkMode, darkMode }) => {
           >
             Calendar
           </Link>
+          <Link
+            to="/settings"
+            className="text-gray-300 dark:text-gray-400 hover:bg-gray-700 dark:hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Settings
+          </Link>
           <Button
             onClick={toggleDarkMode}
             variant={false}

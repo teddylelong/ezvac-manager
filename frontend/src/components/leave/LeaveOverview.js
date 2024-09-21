@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  eachWeekOfInterval,
-  startOfWeek,
-  endOfWeek,
-  addDays,
-  setHours,
-  setMinutes,
-} from "date-fns";
+import { eachWeekOfInterval, startOfWeek, endOfWeek, addDays } from "date-fns";
 import apis from "../../services/api";
 import LeaveHeader from "./LeaveHeader";
 import WeekNavigation from "./WeekNavigation";
 import WeekRow from "./WeekRow";
 import Modal from "../common/Modal";
 import LeaveForm from "./LeaveForm";
+import { countLeaveDays } from "../../helpers/leave";
 
 const LeaveOverview = ({ leaves, fetchLeaves }) => {
   const currentYear = new Date().getFullYear();
@@ -114,12 +108,6 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
                 leave.endDate
               ).toLocaleDateString()}`,
       }));
-  };
-
-  const countLeaveDays = (date1, date2) => {
-    const differenceInTime =
-      new Date(date2).getTime() - new Date(date1).getTime();
-    return Math.ceil(differenceInTime / (1000 * 3600 * 24));
   };
 
   const handlePrevMonth = () => {

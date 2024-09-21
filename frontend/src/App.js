@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import ActionMenu from "./components/ActionMenu";
 import LeaveCalendar from "./components/leave/LeaveCalendar";
+import SettingsOverview from "./components/settings/SettingsOverview";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -51,6 +52,10 @@ const App = () => {
               />
             }
           />
+          <Route
+            path="/settings"
+            element={<SettingsOverview></SettingsOverview>}
+          ></Route>
         </Routes>
       </div>
     </Router>
