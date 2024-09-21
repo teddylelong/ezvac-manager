@@ -22,6 +22,7 @@ mongoose
 // Routes
 app.use("/api/employee", require("./routes/employee"));
 app.use("/api/leave", require("./routes/leave"));
+app.use("/api/settings", require("./routes/settings"));
 
 app.get("/api", (req, res) => {
   res.send("OK");
