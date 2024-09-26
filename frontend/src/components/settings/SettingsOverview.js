@@ -51,37 +51,65 @@ const SettingsOverview = () => {
           title="Add new settings"
         />
       </header>
-      <section className="settings-container p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section className="settings-container p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {settings.length === 0 ? (
-          <p>Loading settings...</p>
+          <p className="text-center text-lg text-gray-600 dark:text-gray-300">
+            Loading settings...
+          </p>
         ) : (
           settings.map((setting) => (
             <div
               key={setting._id}
-              className="p-2 rounded-md shadow-md bg-gray-100 dark:bg-gray-700"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 overflow-hidden"
             >
-              <h1 className="text-xl p-2 border-b border-gray-200 dark:border-gray-600">
-                {setting.year}
-              </h1>
-              <div className="p-2">
-                Excluded dates:{" "}
-                {setting.excludedDates.map((excludedDate) => (
-                  <p>{`${new Date(excludedDate).toLocaleDateString()}`}</p>
-                ))}
+              <div className="bg-gray-300 dark:bg-gray-700 p-4">
+                <h2 className="text-2xl text-gray-800 dark:text-white font-semibold text-center">
+                  {setting.year}
+                </h2>
               </div>
-              <div className="p-2">
-                Excluded dates intervals:
-                {setting.excludedDateIntervals.map((excludedDateInterval) => (
-                  <p>
-                    {`${new Date(
-                      excludedDateInterval.startDate
-                    ).toLocaleDateString()}`}
-                    -&gt;
-                    {`${new Date(
-                      excludedDateInterval.endDate
-                    ).toLocaleDateString()}`}
-                  </p>
-                ))}
+
+              <div className="p-4">
+                <div className="mb-4">
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                    Excluded Dates
+                  </h3>
+                  <ul className="list-disc list-inside text-gray-800 dark:text-white space-y-1">
+                    {setting.excludedDates.length > 0 ? (
+                      setting.excludedDates.map((excludedDate, index) => (
+                        <li key={index}>
+                          {new Date(excludedDate).toLocaleDateString()}
+                        </li>
+                      ))
+                    ) : (
+                      <p className="italic text-gray-500 dark:text-gray-400">
+                        No excluded dates
+                      </p>
+                    )}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                    Excluded Date Intervals
+                  </h3>
+                  <ul className="list-disc list-inside text-gray-800 dark:text-white space-y-1">
+                    {setting.excludedDateIntervals.length > 0 ? (
+                      setting.excludedDateIntervals.map((interval, index) => (
+                        <li key={index}>
+                          {`${new Date(
+                            interval.startDate
+                          ).toLocaleDateString()} → ${new Date(
+                            interval.endDate
+                          ).toLocaleDateString()}`}
+                        </li>
+                      ))
+                    ) : (
+                      <p className="italic text-gray-500 dark:text-gray-400">
+                        No excluded intervals
+                      </p>
+                    )}
+                  </ul>
+                </div>
               </div>
             </div>
           ))
