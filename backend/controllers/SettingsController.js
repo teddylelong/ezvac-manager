@@ -8,7 +8,7 @@ class SettingsController extends CrudController {
 
   getByYear = async (req, res) => {
     try {
-      const setting = await this.model.find({ year: req.params.year });
+      const setting = await this.model.findOne({ year: req.params.year });
       if (!setting) {
         return res.status(404).json({ message: "Setting Not Found" });
       }
