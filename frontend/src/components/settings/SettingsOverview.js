@@ -5,6 +5,7 @@ import apis from "../../services/api";
 import Modal from "../common/Modal.js";
 import Button from "../common/Button.js";
 import SettingsForm from "./SettingsForm.js";
+import Spinner from "../common/Spinner.js";
 
 const SettingsOverview = () => {
   const [settings, setSettings] = useState([]);
@@ -53,9 +54,7 @@ const SettingsOverview = () => {
       </header>
       <section className="settings-container p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {settings.length === 0 ? (
-          <p className="text-center text-lg text-gray-600 dark:text-gray-300">
-            Loading settings...
-          </p>
+          <Spinner />
         ) : (
           settings.map((setting) => (
             <div
