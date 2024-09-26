@@ -9,6 +9,7 @@ const Modal = ({
   title = null,
   children,
   closeOnOutsideClick = true,
+  minWidth = "auto",
 }) => {
   if (!isOpen) return null;
 
@@ -23,7 +24,10 @@ const Modal = ({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 dark:text-gray-200"
       onClick={handleOverlayClick}
     >
-      <div className="min-w-96 bg-white dark:bg-gray-800 p-6 rounded-md shadow-lg">
+      <div
+        className="min-w-96 bg-white dark:bg-gray-800 p-6 rounded-md shadow-lg"
+        style={{ minWidth: minWidth }}
+      >
         <div className="text-end">
           <button onClick={onClose} className="hover:text-red-600">
             <FontAwesomeIcon icon={faXmark} />
