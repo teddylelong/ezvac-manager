@@ -39,7 +39,7 @@
 }
 
 .btn-danger {
-    @apply bg-red-700 text-gray-300 dark:text-white;
+    @apply bg-red-700 text-white;
 }
 
 .btn-danger:hover {
