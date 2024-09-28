@@ -14,13 +14,24 @@ const SettingsForm = ({ onSave, onClose, setting, existingYears }) => {
   const availableYears = Array.from(
     { length: 11 },
     (_, i) => currentYear - 5 + i
-  ).filter((y) => !existingYears.includes(y));
+  ).filter((y) => !existingYears.includes(y) || setting?.year === y);
+
+  const formatDate = (date) => {
+    return new Date(date).toISOString().split("T")[0];
+  };
 
   useEffect(() => {
     if (setting) {
       setYear(setting.year);
-      setExcludedDates(setting.excludedDates || []);
-      setExcludedDateIntervals(setting.excludedDateIntervals || []);
+      setExcludedDates(
+        (setting.excludedDates || []).map((date) => formatDate(date))
+      );
+      setExcludedDateIntervals(
+        (setting.excludedDateIntervals || []).map((interval) => ({
+          startDate: formatDate(interval.startDate),
+          endDate: formatDate(interval.endDate),
+        }))
+      );
     } else {
       setYear("");
       setExcludedDates([]);
@@ -31,8 +42,7 @@ const SettingsForm = ({ onSave, onClose, setting, existingYears }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if the year is unique
-    if (existingYears.includes(year)) {
+    if (existingYears.includes(year) && setting?.year !== year) {
       setErrorMessage("This year already has settings.");
       return;
     }

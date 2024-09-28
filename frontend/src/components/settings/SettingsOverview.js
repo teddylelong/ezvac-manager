@@ -24,6 +24,20 @@ const SettingsOverview = () => {
     setIsModalOpen(true);
   };
 
+  const handleEditSetting = (setting) => {
+    setSelectedSettings(setting);
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteSetting = async (settingId) => {
+    try {
+      await apis.deleteSettings(settingId);
+      fetchSettings();
+    } catch (error) {
+      console.error("Failed to delete setting", error);
+    }
+  };
+
   const handleSaveSetting = async (settingsData) => {
     try {
       selectedSettings
@@ -58,7 +72,12 @@ const SettingsOverview = () => {
           <Spinner />
         ) : (
           settings.map((setting) => (
-            <SettingItem key={setting._id} setting={setting} />
+            <SettingItem
+              key={setting._id}
+              setting={setting}
+              onEdit={handleEditSetting}
+              onDelete={handleDeleteSetting}
+            />
           ))
         )}
       </section>
@@ -73,7 +92,7 @@ const SettingsOverview = () => {
           onSave={handleSaveSetting}
           onClose={() => setIsModalOpen(false)}
           setting={selectedSettings}
-          existingYears={settings.map((s) => s.year)} // Pass existing years
+          existingYears={settings.map((s) => s.year)}
         />
       </Modal>
     </div>
