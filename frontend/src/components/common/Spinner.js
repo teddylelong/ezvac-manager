@@ -1,14 +1,14 @@
 import React from "react";
 
 const Spinner = ({
-  spinnerColor = "blue-sky-600",
+  spinnerColor = "sky-600",
   spinnerBackground = "text-gray-200 dark:text-gray-600",
 }) => {
   return (
-    <div role="status">
+    <div role="status" className="my-2">
       <svg
         aria-hidden="true"
-        class={`w-8 h-8 animate-spin ${spinnerBackground}  fill-${spinnerColor}`}
+        className={`w-8 h-8 animate-spin ${spinnerBackground} fill-${spinnerColor}`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

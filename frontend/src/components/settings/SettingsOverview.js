@@ -10,13 +10,21 @@ import SettingItem from "./SettingItem.js";
 
 const SettingsOverview = () => {
   const [settings, setSettings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Ajout de l'état de chargement
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSettings, setSelectedSettings] = useState(null);
 
   const fetchSettings = async () => {
-    const response = await apis.getSettings();
-    const settings = response.data.sort((a, b) => a.year - b.year);
-    setSettings(settings);
+    setIsLoading(true);
+    try {
+      const response = await apis.getSettings();
+      const settings = response.data.sort((a, b) => a.year - b.year);
+      setSettings(settings);
+    } catch (error) {
+      console.error("Failed to fetch settings", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const addSettings = () => {
@@ -68,8 +76,21 @@ const SettingsOverview = () => {
         />
       </header>
       <section className="settings-container p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {settings.length === 0 ? (
+        {isLoading ? (
           <Spinner />
+        ) : settings.length === 0 ? (
+          <div>
+            <p className="text-gray-500 dark:text-gray-300 mb-2">
+              No settings found. You can add a new setting below.
+            </p>
+            <Button
+              onClick={addSettings}
+              variant="primary"
+              size="md"
+              label="Create your first setting"
+              className="rounded-md"
+            />
+          </div>
         ) : (
           settings.map((setting) => (
             <SettingItem
