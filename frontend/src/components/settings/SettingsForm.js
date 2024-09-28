@@ -132,8 +132,8 @@ const SettingsForm = ({ onSave, onClose, setting, existingYears }) => {
               />
               <Button
                 type="button"
-                variant="danger"
-                className="rounded-md"
+                variant=""
+                className="rounded-md hover:text-red-600"
                 onClick={() => handleRemoveExcludedDate(index)}
                 label={<FontAwesomeIcon icon={faTrash} />}
               />
@@ -172,8 +172,8 @@ const SettingsForm = ({ onSave, onClose, setting, existingYears }) => {
                 />
                 <Button
                   type="button"
-                  variant="danger"
-                  className="rounded-md"
+                  variant=""
+                  className="rounded-md hover:text-red-600"
                   onClick={() => handleRemoveInterval(index)}
                   label={<FontAwesomeIcon icon={faTrash} />}
                 />
