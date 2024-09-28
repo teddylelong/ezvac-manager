@@ -211,6 +211,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
         isOpen={isModalOpen}
         title={selectedLeave ? "Edit Leave" : "Add New Leave"}
         onClose={() => setIsModalOpen(false)}
+        minWidth="400px"
       >
         <LeaveForm
           onSave={handleSaveLeave}

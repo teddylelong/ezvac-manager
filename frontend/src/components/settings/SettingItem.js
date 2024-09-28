@@ -29,7 +29,8 @@ const SettingItem = ({ setting, onEdit, onDelete }) => {
             title="Edit setting"
           />
           <Button
-            variant="transparent"
+            variant=""
+            className="hover:text-red-600"
             size="sm"
             onClick={confirmDelete}
             label={<FontAwesomeIcon icon={faTrash} />}

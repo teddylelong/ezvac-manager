@@ -26,7 +26,7 @@ const EmployeeLeaveItem = React.forwardRef(
         <div className="p-2">
           <div>
             <span>
-              {employee.firstName} {employee.lastName}
+              {employee.lastName} {employee.firstName}
             </span>
             <span className="ml-2 text-sm text-gray-500 dark:text-gray-300">
               {leaveDays} day{leaveDays > 1 ? "s" : ""}

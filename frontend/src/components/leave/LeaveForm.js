@@ -61,10 +61,10 @@ const LeaveForm = ({ onSave, onClose, leave }) => {
           className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white"
           required
         >
-          <option value="">---</option>
+          {!employee && <option value="">---</option>}
           {employees.map((employee) => (
             <option key={employee._id} value={employee._id}>
-              {employee.firstName} {employee.lastName}
+              {employee.lastName} {employee.firstName}
             </option>
           ))}
         </select>
