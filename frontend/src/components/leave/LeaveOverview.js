@@ -19,6 +19,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
   const [selectedLeave, setSelectedLeave] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [excludedDates, setExcludedDates] = useState([]);
+  const [excludedDateIntervals, setExcludedDateIntervals] = useState([]);
 
   // Fetch excluded dates once based on the year
   useEffect(() => {
@@ -27,7 +28,9 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
         const response = await apis.getSettingsByYear(year);
         const settings = response.data;
         const excludedDates = settings.excludedDates || [];
+        const excludedDateIntervals = settings.excludedDateIntervals || [];
         setExcludedDates(excludedDates);
+        setExcludedDateIntervals(excludedDateIntervals);
       } catch (error) {
         console.error("Failed to fetch excluded dates", error);
       }
@@ -199,6 +202,7 @@ const LeaveOverview = ({ leaves, fetchLeaves }) => {
             handleDropLeave={handleDropLeave}
             handleDropEmployee={handleDropEmployee}
             isEven={i % 2 === 0}
+            excludedDateIntervals={excludedDateIntervals}
           />
         ))}
       </div>

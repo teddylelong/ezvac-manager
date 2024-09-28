@@ -1,5 +1,12 @@
 import { isSameDay, addDays } from "date-fns";
 
+/**
+ * Count the total number of Days
+ * @param {string} date1 - startDate
+ * @param {string} date2 - endDate
+ * @param {Array} excludedDates - Dates to exclude
+ * @returns int
+ */
 export const countLeaveDays = (date1, date2, excludedDates = []) => {
   const startDate = new Date(date1);
   const endDate = new Date(date2);
@@ -24,8 +31,6 @@ export const countLeaveDays = (date1, date2, excludedDates = []) => {
 
     currentDay = addDays(currentDay, 1);
   }
-
-  console.log(excludedDates, totalDays, excludedDaysCount);
 
   return totalDays - excludedDaysCount;
 };

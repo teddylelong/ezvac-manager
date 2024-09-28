@@ -1,7 +1,14 @@
 import React from "react";
 import { useDrop } from "react-dnd";
 import EmployeeLeaveItem from "./EmployeeLeaveItem";
-import { getWeek, addHours, addDays } from "date-fns";
+import {
+  getWeek,
+  addHours,
+  addDays,
+  startOfWeek,
+  endOfWeek,
+  isWithinInterval,
+} from "date-fns";
 import Label from "../common/Label";
 
 const WeekRow = ({
@@ -12,6 +19,7 @@ const WeekRow = ({
   handleDropLeave,
   handleDropEmployee,
   isEven,
+  excludedDateIntervals,
 }) => {
   const [{ isOver }, drop] = useDrop({
     accept: ["leave", "employee"],
@@ -32,6 +40,23 @@ const WeekRow = ({
     }),
   });
 
+  const weekRange = {
+    start: startOfWeek(weekStart, { weekStartsOn: 1 }),
+    end: endOfWeek(weekStart, { weekStartsOn: 1 }),
+  };
+
+  const isExcludedWeek = excludedDateIntervals.some(
+    (interval) =>
+      isWithinInterval(weekRange.start, {
+        start: new Date(interval.startDate),
+        end: new Date(interval.endDate),
+      }) ||
+      isWithinInterval(weekRange.end, {
+        start: new Date(interval.startDate),
+        end: new Date(interval.endDate),
+      })
+  );
+
   return (
     <>
       {/* Week Column */}
@@ -41,7 +66,7 @@ const WeekRow = ({
         }`}
       >
         <Label
-          variant="secondary"
+          variant={isExcludedWeek ? "primary" : "secondary"}
           label={getWeek(weekStart)}
           className="text-base shadow-sm w-10 text-center"
         />
