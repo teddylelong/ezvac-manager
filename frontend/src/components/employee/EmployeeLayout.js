@@ -47,10 +47,10 @@ const EmployeeLayout = ({
         <button
           onClick={toggleSidebar}
           className={`btn-transparent btn-sm bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow-md z-10 cursor-pointer h-1/6
-                      absolute top-1/2 -right-3 transform -translate-y-1/2
-                      transition-transform ease-in-out delay-150 ${
-                        isCollapsed ? "hover:translate-x-2" : ""
-                      }`}
+                        absolute top-1/2 -right-3 transform -translate-y-1/2
+                        transition-transform ease-in-out delay-150 ${
+                          isCollapsed ? "hover:translate-x-2" : ""
+                        }`}
         >
           <FontAwesomeIcon
             icon={isCollapsed ? faChevronRight : faChevronLeft}

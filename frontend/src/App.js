@@ -7,7 +7,7 @@ import SettingsOverview from "./components/settings/SettingsOverview";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false); // État pour la sidebar
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     if (darkMode) {
@@ -27,7 +27,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="text-gray-800">
+      <div className="overflow-hidden text-gray-800">
         <ActionMenu
           toggleDarkMode={toggleDarkMode}
           darkMode={darkMode}
