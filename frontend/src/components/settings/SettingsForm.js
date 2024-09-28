@@ -92,7 +92,7 @@ const SettingsForm = ({ onSave, onClose, setting, existingYears }) => {
   return (
     <form onSubmit={handleSubmit}>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-      <div className="mb-4">
+      <div className="mb-4 w-1/3">
         <label
           htmlFor="year"
           className="block text-gray-700 dark:text-gray-300"
@@ -115,56 +115,18 @@ const SettingsForm = ({ onSave, onClose, setting, existingYears }) => {
         </select>
       </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 dark:text-gray-300">
-          Excluded Dates
-        </label>
-        {excludedDates.map((date, index) => (
-          <div key={index} className="flex items-center mb-2">
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => handleExcludedDateChange(index, e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white mr-2"
-            />
-            <Button
-              type="button"
-              variant="danger"
-              className="rounded-md"
-              onClick={() => handleRemoveExcludedDate(index)}
-              label={<FontAwesomeIcon icon={faTrash} />}
-            />
-          </div>
-        ))}
-        <Button
-          type="button"
-          variant="secondary"
-          className="rounded-md"
-          onClick={handleAddExcludedDate}
-          label={<FontAwesomeIcon icon={faPlus} />}
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-gray-700 dark:text-gray-300">
-          Excluded Date Intervals
-        </label>
-        {excludedDateIntervals.map((interval, index) => (
-          <div key={index} className="mb-2">
-            <div className="flex items-center mb-2">
+      <div className="flex gap-4">
+        <div className="w-1/3">
+          <label className="block text-gray-700 dark:text-gray-300">
+            Excluded Dates
+          </label>
+          {excludedDates.map((date, index) => (
+            <div key={index} className="flex items-center mb-2">
               <input
                 type="date"
-                value={interval.startDate}
+                value={date}
                 onChange={(e) =>
-                  handleIntervalChange(index, "startDate", e.target.value)
-                }
-                className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white mr-2"
-              />
-              <input
-                type="date"
-                value={interval.endDate}
-                onChange={(e) =>
-                  handleIntervalChange(index, "endDate", e.target.value)
+                  handleExcludedDateChange(index, e.target.value)
                 }
                 className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white mr-2"
               />
@@ -172,19 +134,60 @@ const SettingsForm = ({ onSave, onClose, setting, existingYears }) => {
                 type="button"
                 variant="danger"
                 className="rounded-md"
-                onClick={() => handleRemoveInterval(index)}
+                onClick={() => handleRemoveExcludedDate(index)}
                 label={<FontAwesomeIcon icon={faTrash} />}
               />
             </div>
-          </div>
-        ))}
-        <Button
-          type="button"
-          variant="secondary"
-          className="rounded-md"
-          onClick={handleAddInterval}
-          label={<FontAwesomeIcon icon={faPlus} />}
-        />
+          ))}
+          <Button
+            type="button"
+            variant="secondary"
+            className="rounded-md"
+            onClick={handleAddExcludedDate}
+            label={<FontAwesomeIcon icon={faPlus} />}
+          />
+        </div>
+        <div className="w-2/3">
+          <label className="block text-gray-700 dark:text-gray-300">
+            Excluded Date Intervals
+          </label>
+          {excludedDateIntervals.map((interval, index) => (
+            <div key={index} className="mb-2">
+              <div className="flex items-center mb-2">
+                <input
+                  type="date"
+                  value={interval.startDate}
+                  onChange={(e) =>
+                    handleIntervalChange(index, "startDate", e.target.value)
+                  }
+                  className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white mr-2"
+                />
+                <input
+                  type="date"
+                  value={interval.endDate}
+                  onChange={(e) =>
+                    handleIntervalChange(index, "endDate", e.target.value)
+                  }
+                  className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white mr-2"
+                />
+                <Button
+                  type="button"
+                  variant="danger"
+                  className="rounded-md"
+                  onClick={() => handleRemoveInterval(index)}
+                  label={<FontAwesomeIcon icon={faTrash} />}
+                />
+              </div>
+            </div>
+          ))}
+          <Button
+            type="button"
+            variant="secondary"
+            className="rounded-md"
+            onClick={handleAddInterval}
+            label={<FontAwesomeIcon icon={faPlus} />}
+          />
+        </div>
       </div>
 
       <div className="flex justify-end">

@@ -107,7 +107,7 @@ const SettingsOverview = () => {
         isOpen={isModalOpen}
         title={selectedSettings ? "Edit Settings" : "Add Settings"}
         onClose={() => setIsModalOpen(false)}
-        minWidth="500px"
+        minWidth="800px"
       >
         <SettingsForm
           onSave={handleSaveSetting}
