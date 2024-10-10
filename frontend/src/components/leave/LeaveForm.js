@@ -8,6 +8,7 @@ const LeaveForm = ({ onSave, onClose, leave }) => {
   const [employee, setEmployee] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     fetchEmployees();
@@ -15,10 +16,12 @@ const LeaveForm = ({ onSave, onClose, leave }) => {
       setEmployee(leave.employee._id);
       setStartDate(formatDateForInput(leave.startDate));
       setEndDate(formatDateForInput(leave.endDate));
+      setComment(leave.comment);
     } else {
       setEmployee("");
       setStartDate("");
       setEndDate("");
+      setComment("");
     }
   }, [leave]);
 
@@ -34,7 +37,7 @@ const LeaveForm = ({ onSave, onClose, leave }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({ employee, startDate, endDate });
+    onSave({ employee, startDate, endDate, comment });
     onClose();
   };
 
@@ -100,6 +103,20 @@ const LeaveForm = ({ onSave, onClose, leave }) => {
           className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white"
           required
         />
+      </div>
+      <div className="mb-4">
+        <label
+          htmlFor="comment"
+          className="block text-gray-700 dark:text-gray-300"
+        >
+          Comment
+        </label>
+        <textarea
+          id="comment"
+          className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        ></textarea>
       </div>
       <div className="flex justify-end">
         <Button

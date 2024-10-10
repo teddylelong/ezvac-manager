@@ -15,6 +15,10 @@ const LeaveSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    comment: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,
