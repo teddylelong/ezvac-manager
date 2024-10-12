@@ -10,6 +10,7 @@ import {
   isWithinInterval,
 } from "date-fns";
 import Label from "../common/Label";
+import apis from "../../services/api";
 
 const WeekRow = ({
   weekStart,
@@ -57,6 +58,32 @@ const WeekRow = ({
       })
   );
 
+  const handleSaveComment = async (leaveId, comment) => {
+    try {
+      const leaveToUpdate = employeesWithLeaves.find(
+        (l) => l.leave._id === leaveId
+      );
+
+      if (
+        !leaveToUpdate ||
+        !leaveToUpdate.leave ||
+        !leaveToUpdate.leave.employee._id
+      ) {
+        console.error("Invalid Employee ID");
+        return;
+      }
+
+      await apis.updateLeave(leaveId, {
+        employee: leaveToUpdate.leave.employee._id,
+        startDate: leaveToUpdate.leave.startDate,
+        endDate: leaveToUpdate.leave.endDate,
+        comment: comment,
+      });
+    } catch (error) {
+      console.error("Error while saving comment :", error);
+    }
+  };
+
   return (
     <>
       {/* Week Column */}
@@ -95,6 +122,7 @@ const WeekRow = ({
                   leaveDateToStr={leaveDateToStr}
                   editLeave={() => editLeave(leave._id)}
                   deleteLeave={() => handleDeleteLeave(leave._id)}
+                  onSaveComment={handleSaveComment}
                 />
               )
             )}
