@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 
-const Dropdown = ({ options, children, icon, title = "" }) => {
+const Dropdown = ({
+  options,
+  children,
+  icon,
+  iconColor = "text-gray-700 dark:text-gray-200",
+  title = "",
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmingOption, setConfirmingOption] = useState(null);
   const dropdownRef = useRef(null);
@@ -47,7 +53,7 @@ const Dropdown = ({ options, children, icon, title = "" }) => {
       <button
         title={title}
         onClick={toggleDropdown}
-        className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-sky-400 dark:text-gray-200 dark:hover:text-sky-400"
+        className={`flex items-center justify-center w-full px-4 pt-2 text-sm font-medium ${iconColor} hover:text-sky-400  dark:hover:text-sky-400`}
       >
         {icon ? (
           <FontAwesomeIcon icon={icon} />

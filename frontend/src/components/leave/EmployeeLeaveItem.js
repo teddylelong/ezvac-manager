@@ -3,7 +3,7 @@ import Dropdown from "../common/Dropdown";
 import DraggableItem from "../common/DraggableItem";
 import Button from "../common/Button";
 import { useDrag } from "react-dnd";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faCommentSlash } from "@fortawesome/free-solid-svg-icons";
 
 const EmployeeLeaveItem = React.forwardRef(
   (
@@ -67,9 +67,17 @@ const EmployeeLeaveItem = React.forwardRef(
             />
 
             {/* Comment action */}
-            <Dropdown icon={faComment} title="Add a comment">
+            <Dropdown
+              title="Add a comment"
+              icon={comment ? faComment : faCommentSlash}
+              iconColor={
+                comment
+                  ? "text-gray-700 dark:text-gray-200"
+                  : "text-gray-400 dark:text-gray-400"
+              }
+            >
               <div
-                className="p-2"
+                className="p-2 cursor-default"
                 draggable
                 onDragStart={(e) => {
                   e.preventDefault();
