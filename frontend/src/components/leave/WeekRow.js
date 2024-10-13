@@ -91,7 +91,7 @@ const WeekRow = ({
         className={`week-number min-h-24 col-span-1 flex flex-none items-center p-4 border-b border-gray-200 dark:border-gray-600 ${
           isOver ? "bg-sky-100 dark:bg-blue-900" : ""
         } ${
-          isEven ? "bg-gray-50 dark:bg-gray-700" : "bg-white dark:bg-gray-800"
+          isEven ? "bg-gray-50 dark:bg-[#253142]" : "bg-white dark:bg-gray-800"
         } transition-colors duration-200 ease-in-out`}
       >
         <Label
@@ -107,7 +107,7 @@ const WeekRow = ({
         className={`employee-names min-h-24 col-span-11 flex flex-none p-4 border-b border-gray-200 dark:border-gray-600 ${
           isOver ? "bg-sky-100 dark:bg-blue-900" : ""
         } ${
-          isEven ? "bg-gray-50 dark:bg-gray-700" : "bg-white dark:bg-gray-800"
+          isEven ? "bg-gray-50 dark:bg-[#253142]" : "bg-white dark:bg-gray-800"
         } transition-colors duration-200 ease-in-out`}
       >
         <div className="flex flex-wrap gap-4">
