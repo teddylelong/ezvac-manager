@@ -93,6 +93,7 @@ const EmployeeList = ({ fetchLeaves }) => {
         isOpen={isModalOpen}
         title={selectedEmployee ? "Edit Employee" : "Add New Employee"}
         onClose={() => setIsModalOpen(false)}
+        minWidth="400px"
       >
         <EmployeeForm
           onSave={handleSaveEmployee}
